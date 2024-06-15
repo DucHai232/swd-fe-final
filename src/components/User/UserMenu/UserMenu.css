@@ -1,0 +1,125 @@
+.user_menu-container{
+    width: 20%;
+    height: 100%;
+    background-color: #718BE5;   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-left: -0.2%;
+    /* overflow-y: scroll;
+    height: calc(120vh - 107px); */
+}
+
+.user_menu-container .image{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid white;
+}
+.user_menu-container .image img{
+    width: 175px;
+    height: 100px;
+}
+
+
+.user_menu-container .list-btn{
+    /* margin-top: 5px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: calc(100vh - 107px);
+}
+
+.list-btn .btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* transition: 0.5s; */
+}
+
+.btn .btn-item{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.choose{
+    background-color: #95BDFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn-item .image-icon, .sub-btn-item .image-icon {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+.btn-item .image-icon img, .sub-btn-item .image-icon img{
+    width: 30px;
+    height: 30px;
+}
+.btn-item p, .sub-btn-item p{
+    width:  78%;
+    text-align: right;
+    padding-right: 2%;
+    color: #F9F8F2;
+    font-family: "Kavoon", serif;
+    font-size: 20px;
+}
+.btn-item:hover , .sub-btn-item:hover{
+    background-color: #95BDFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+
+.list-btn .sub-btn {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    transition: height 0.5s ease-in-out;
+    height: 0;
+    overflow: hidden;
+}
+.list-btn .sub-btn.show {
+    height: auto; 
+    transition: 0.5s;
+}
+
+.sub-btn .sub-btn-item{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    transition: 0.5s;
+    margin-right: 5%;
+}
+
+
+@media (min-width: 1530px) {
+    .user_menu-container{
+        position: absolute;
+        /* left: 10%; */
+    }
+}

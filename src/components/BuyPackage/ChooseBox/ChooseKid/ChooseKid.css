@@ -1,0 +1,81 @@
+.choose_kid-container {
+    /* margin: 1%; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow-y: scroll;
+    height: calc(100vh - 100px); */
+    background-color: white;
+}
+
+.choose_kid-container .choose_kid-table {
+    width: 100% !important;
+}
+
+
+.choose_kid-container .ant-table-cell {
+    /* background-color: rgb(255, 255, 255) !important; */
+}
+
+
+.choose_kid-container th.ant-table-selection-column {
+    background-color: #72deff !important;
+}
+
+.choose_kid-container th.column {
+    font-family: "Josefin Sans", sans-serif;
+    background-color: #72deff !important;
+    color: white !important;
+    font-size: 21px !important;
+    font-weight: bold !important;
+}
+
+.choose_kid-container .anticon svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: white;
+    /* color: white; */
+}
+
+/* chỉnh dấu sort tuổi khi được bấm */
+/* :where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper .ant-table-column-sorter-up.active ,
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper .ant-table-column-sorter-down.active {
+    fill: #1677ff !important;
+} */
+
+/* .ant-table-column-sorter-inner .ant-table-column-sorter-up  .active svg{
+    fill: #1677ff !important;
+} */
+
+
+.choose_kid-container .ant-table-selection-column {
+    width: 5%;
+}
+
+.choose_kid-container .column {
+    width: 33.3%;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 18px;
+    padding-left: 5% !important;
+}
+
+.choose_kid-container .ant-table-column-title {
+    font-family: "Josefin Sans", sans-serif !important;
+    font-size: 21px !important;
+}
+
+.choose_kid-container tr.ant-table-row .ant-table-row-level-0 .ant-table-row-selected {
+    background-color: red !important;
+}
+
+
+/* chỉnh hover của 1 row */
+.choose_kid-container :where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper .ant-table-tbody .ant-table-row>.ant-table-cell-row-hover {
+    background-color: #e7f9ff !important;
+}
+
+/* chỉnh màu nút qua trang */
+.choose_kid-container .anticon-left svg, .choose_kid-container .anticon-right svg{
+    fill: #72deff;
+}

@@ -1,0 +1,33 @@
+.table_kid-container{
+    margin:  0 5%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+:where(.css-dev-only-do-not-override-j9bb5n).ant-table-wrapper {
+    width: 100%;
+}
+
+.css-13xfq8m-MuiTabPanel-root{
+    width: 95%;
+}
+
+/* chỉnh tên cột */
+.ant-table-column-title {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 18px;
+}
+
+/* chỉnh content ở trong */
+.ant-table-cell{
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 16px;
+    padding: 2% !important;
+}
+
+/* chỉnh nút search */
+.ant-table-filter-column .anticon svg {
+    width: 20px !important;
+    height: 20px !important;
+}

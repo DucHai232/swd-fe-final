@@ -1,0 +1,54 @@
+.user-whole-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user-container{
+    max-width: var(--max-screen-width);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    position: relative; /* để user-container khi width > 1530px (--max-screen-width) thì position: absolute*/
+}
+
+
+
+.user-right-container{
+    margin-left: calc(20% - 0.2%); /*nếu position: fixed cho user_menu-container thì mới xài dòng này*/
+    /* vì user_menu-container đang margin-left: -0.2% nên ở đây viết v để đừng bị dư 1 khoảng trắng nhỏ */
+    width: 80%;
+    height: 100vh;
+    position: relative;
+    background-color: rgb(249, 245, 245);
+    /* margin-top: 10px; */
+}
+
+.user-right-container img{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    width: 35px;
+    height: 35px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.user-right-container img:hover{
+    background-color: rgb(229, 228, 228);
+}
+.user-right-container .welcome-user {
+    text-align: right;
+    font-family: "Josefin Sans", sans-serif;
+    color: #828282;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 6%;
+    padding-top: 5%;
+    margin: 0;
+}
+
+.user-container .info{
+
+}

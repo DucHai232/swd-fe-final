@@ -1,0 +1,68 @@
+.slide-container {
+    margin-bottom: 100px;
+    width: 100%;
+    background-color: rgb(244, 244, 244);
+    /* border-radius: 15px; */
+}
+
+/* nút trái */
+:where(.css-dev-only-do-not-override-j9bb5n).ant-carousel .slick-prev::after {
+    transform: rotate(-45deg);
+    color: pink;
+    padding: 15px;
+    margin-left: 50px;
+}
+
+/* nút phải */
+:where(.css-dev-only-do-not-override-j9bb5n).ant-carousel .slick-next::after{
+    transform: rotate(135deg);
+    color: pink;
+    padding: 15px;
+    /* margin-right: 50px !important; */
+    margin-left: -80px;
+}
+
+/* chỉnh cho nút bự ra và tròn trịa */
+:where(.css-dev-only-do-not-override-j9bb5n).ant-carousel .slick-prev::after,
+:where(.css-dev-only-do-not-override-j9bb5n).ant-carousel .slick-next::after {
+    box-sizing: border-box;
+    position: absolute;
+    top: 2.3422913719943423px;
+    /* inset-inline-start: 2.3422913719943423px; */
+    /* display: inline-block; */
+    /* width: 11.315417256011315px; */
+    /* height: 11.315417256011315px; */
+    border: 0 solid currentcolor;
+    border-inline-width: 10px 0;
+    border-block-width: 10px 0;
+    border-radius: 5px;
+    content: "";
+}
+
+/* chỉnh cho thanh chuyển slide ko bị đè lên header */
+:where(.css-dev-only-do-not-override-j9bb5n).ant-carousel .slick-dots {
+    position: absolute;
+    inset-inline-end: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    z-index: 2;
+    display: flex !important;
+    justify-content: center;
+    padding-inline-start: 0;
+    margin-bottom: 18px;
+    list-style: none;
+}
+
+
+.slide-content {
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.slide-content img {
+    width: 80%;
+    height: 650px;
+    cursor: pointer;
+}

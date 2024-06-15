@@ -1,0 +1,25 @@
+.caption-container {
+    width: 100%;
+    height: 650px;
+    margin-bottom: 100px;
+    background-image: url("/assets/Background-homepage5.jpg");
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.caption-container p:nth-of-type(1){
+    width: 100%;
+    font-family: "Kavoon", serif;
+    font-size: 50px;
+    text-align: center;
+    color: rgb(255, 73, 103);
+    margin: 0;
+    text-shadow: 5px 5px 10px rgb(255, 73, 103, 0.25);
+}
+.caption-container p:nth-of-type(2){
+    width: 100%;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(255, 111, 135);
+}

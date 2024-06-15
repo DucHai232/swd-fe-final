@@ -1,0 +1,136 @@
+.choose_box-container{
+    width: 100%;
+    height: 1200px;
+    background-image: url('/assets/BackgroundBuyPackage.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.choose_box-container .choose_box-title {
+    margin: 0;
+    padding: 12% 0 7%;
+    width: 100%;
+    color: #44D2FF;
+    font-family: "Kavoon", serif;
+    font-size: 60px;
+    text-align: center;
+    text-shadow:
+        5px 5px 0 #000,
+        /* Right bottom shadow */
+        -5px -5px 0 #000,
+        /* Left top shadow */
+        -5px 5px 0 #000,
+        /* Left bottom shadow */
+        5px -5px 0 #000,
+        /* Right top shadow */
+        5px 0 0 #000,
+        /* Right shadow */
+        -5px 0 0 #000,
+        /* Left shadow */
+        0 5px 0 #000,
+        /* Bottom shadow */
+        0 -5px 0 #000;
+    /* Top shadow */
+}
+
+.choose_box-container .choose_box-content{
+    width: 80%;
+}
+
+/* chỉnh chữ ở steps */
+.ant-steps-icon{
+    font-family: "Kavoon", serif;
+    color: white !important;
+    font-size: 25px !important;
+}
+.ant-steps-item-title {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px !important;
+}
+
+
+/* chỉnh màu của steps hiện tại */
+.ant-steps-item-process .ant-steps-item-icon{
+    background-color: #44D2FF !important;
+    border-color: #44D2FF !important;
+}
+.ant-steps-item-process .ant-steps-item-title{
+    color: #44D2FF !important;
+}
+
+
+/* chỉnh màu của steps khi không phải lượt */
+.ant-steps-item-wait .ant-steps-item-icon{
+    background-color: #D2D2D2 !important;
+    border-color: #D2D2D2 !important;
+}
+.ant-steps-item-wait .ant-steps-item-title{
+    color: #000000 !important;
+}
+
+
+/* chỉnh màu của steps khi qua lượt rồi */
+.ant-steps-item-icon{
+    background-color: #44D2FF !important;
+}
+.ant-steps-icon .anticon svg{
+    width: 30px;
+    height: 30px;
+    fill: white !important;
+}
+.ant-steps-item-title{
+    color: #44D2FF !important;
+}
+
+/* chỉnh màu thanh tiến độ */
+.ant-steps-item-title::after{
+    background-color: #BFBDBD !important;
+    height: 2px !important;
+}
+.ant-steps-item-finish .ant-steps-item-title::after{
+    background-color: #44D2FF !important;
+    height: 2px !important;
+}
+.ant-steps-item-process .ant-steps-item-title::after{
+    background-color: #BFBDBD !important;
+    height: 2px !important;
+}
+
+/* chỉnh thông báo hoàn thành steps */
+.ant-message-success {
+    display: flex;
+    align-items: center;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 17px;
+    margin-top: 1%;
+}
+.ant-message-success .anticon svg{
+    fill: green !important;
+}
+
+
+.choose_box-container .choose_box-btn{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.choose_box-container .choose_box-btn button{
+    background-color: #4accf3 !important;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+}
+.choose_box-container .choose_box-btn button:hover{
+    background-color: #11b4e6 !important;
+    color: white !important;
+    border: none;
+}

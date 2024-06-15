@@ -1,0 +1,15 @@
+.buy_package-whole-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buy_package-container{
+    max-width: var(--max-screen-width);
+    width: 100%;
+    /* margin-top: 135px; */
+    /* vì bỏ hàng filter bên dưới r nên chỉnh margin-top lại*/
+    margin-top: 80px;
+}

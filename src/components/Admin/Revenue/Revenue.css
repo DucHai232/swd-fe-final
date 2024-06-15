@@ -1,0 +1,118 @@
+.revenue-container{
+    padding: 12px;
+}
+.cards{
+    display: flex;
+}
+
+.card{
+    padding: 10px;
+    margin-left: 1.5%;
+    width: 23%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 30px 30px 70px 30px rgba(10, 7, 36, 0.1);
+    border-radius: 8px;
+}
+
+.item-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card .item-1 .number{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.card .item-1 .icon {
+    margin-left: 40px;
+    font-size: 50px;
+}
+
+.card .item-1 .des{
+    margin-top: -20px;
+    color: lightgray;
+}
+.color-blue{
+    color: rgb(0, 0, 92);
+}
+.color-green {
+    color: rgb(8, 205, 8);
+}
+
+.color-red{
+    color: red;
+}
+.color-tomato{
+    color: tomato;
+}
+
+.card .item-2{
+    display: flex;
+}
+
+.card .item-2 .text {
+    margin-left: 15px;
+}
+
+.card .item-2 .grow{
+    display: flex;
+    align-items: center;
+    color: rgb(4, 193, 4);
+}
+
+.card .item-2 .down{
+    display: flex;
+    align-items: center;
+    color: red;
+}
+
+.charts{
+    margin-top: 15px;
+    display: flex;
+}
+
+.charts .chart{
+    width: 72%;
+    min-height: 500px;
+}
+
+.charts .filter{
+    width: 23.3%;
+    margin-left: 15px;
+}
+
+.charts .filter .filter-date,.charts .filter .filter-choose{
+    /* width: 100%; */
+    margin-left: 1.5%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 30px 30px 70px 30px rgba(10, 7, 36, 0.1);
+    border-radius: 8px;
+    position: relative;
+    height: 48%;
+}
+
+.charts .filter .filter-choose{
+    margin-top: 20px;
+}
+
+.filter .filter-date .title, .filter .filter-choose .title{
+    background-color: tomato;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    font-size: 16px;
+}
+
+.filter .filter-date .date{
+    position: absolute;
+    top: 20%;
+    padding: 12px;
+}

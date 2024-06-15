@@ -1,0 +1,84 @@
+.order-container{
+    margin:  0 5%;
+    height: 80%;
+    width: 90%;
+    background-color: white;
+    box-shadow: 5px 5px 10px rgba(113, 139, 229, 0.5);
+}
+
+.order-container .title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.title .underline{
+    width: 90%;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+.underline .order-title{
+    color: black;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 3.5% 0 0;
+    padding-bottom: 1%;
+    width: 10%;
+    border-bottom: 2px solid black;
+    text-align: center
+}
+
+.underline .sort{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.underline .sort p{
+    width: 25%;
+    margin: 0 0 2%;
+    font-family: "Josefin Sans", sans-serif;
+}
+.underline .sort select{
+    height: 20px;
+    margin-bottom: 1%;
+    padding-left: 1%;
+    color: #828282;
+    font-family: "Josefin Sans", sans-serif;
+    background-color: #EBEBEB;
+    border-radius: 20px;
+    border: none;
+}
+
+
+.order-container .content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+.content table{
+    width: 90%;
+    font-family: "Josefin Sans", sans-serif;
+    text-align: center;
+}
+.content table tr:nth-of-type(1){
+    font-weight: bold;
+}
+.content table td{
+    padding-bottom: 4%;
+}
+.content table .detail button{
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(124, 173, 255);
+    padding: 8px 10px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.content table .detail button:hover{
+    background-color: rgb(96, 154, 254);
+}

@@ -1,0 +1,16 @@
+.home-whole-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-container {
+    max-width: var(--max-screen-width);
+    width: 100%;
+    background-color: rgb(255, 250, 250);
+    /* margin-top: 135px; */
+    /* vì bỏ hàng filter bên dưới r nên chỉnh margin-top lại*/
+    margin-top: 80px;
+}

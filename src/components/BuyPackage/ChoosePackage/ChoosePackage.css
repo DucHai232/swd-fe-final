@@ -1,0 +1,150 @@
+.choose_package-container {
+    width: 100%;
+    height: 1200px;
+    background-image: url('/assets/BackgroundBuyPackage.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    background-color: #E0F8FF;
+    position: relative;
+}
+
+.choose_package-container .choose_package-title {
+    margin: 0;
+    padding: 12% 0 8%;
+    width: 100%;
+    color: #44D2FF;
+    font-family: "Kavoon", serif;
+    font-size: 60px;
+    text-align: center;
+    text-shadow:
+        5px 5px 0 #000,
+        /* Right bottom shadow */
+        -5px -5px 0 #000,
+        /* Left top shadow */
+        -5px 5px 0 #000,
+        /* Left bottom shadow */
+        5px -5px 0 #000,
+        /* Right top shadow */
+        5px 0 0 #000,
+        /* Right shadow */
+        -5px 0 0 #000,
+        /* Left shadow */
+        0 5px 0 #000,
+        /* Bottom shadow */
+        0 -5px 0 #000;
+    /* Top shadow */
+}
+
+
+.choose_package-container .choose_package-content {
+    width: 20%;
+    height: 370px;
+    /*ko viết dòng này thì khi hover, choose_package-content to ra sẽ làm các class khác bị giựt theo*/
+}
+
+.choose_package-content img {
+    width: 250px;
+    height: 350px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.5s ease, border 0.1s ease;
+}
+
+.choose_package-content:hover img {
+    width: 270px;
+    height: 370px;
+    transition: 0.5s ease, border 0.1s ease;
+    box-shadow: 1px 1px 20px 8px rgb(45 133 251 / 30%);
+}
+
+.choose_package-content .sub-title {
+    position: absolute;
+    top: 36%;
+    width: 150px;
+    font-family: "Kavoon", serif;
+    font-size: 30px;
+    margin: 0 0 0 3.5%;
+    color: #7896FF;
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.5s ease;
+}
+
+.choose_package-content:hover .sub-title {
+    top: 37%;
+    margin: 0 0 0 4.5%;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.choose_package-content ul {
+    position: absolute;
+    top: 41%;
+    margin: 0 1%;
+    transition: 0.5s ease;
+}
+
+.choose_package-content:hover ul {
+    top: 42%;
+    margin: 0 2%;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.choose_package-content li {
+    color: #585858;
+    font-family: "Josefin Sans", sans-serif;
+    margin-bottom: 10%;
+}
+
+.choose_package-content .price {
+    position: absolute;
+    top: 47.5%;
+    font-family: "Kavoon", serif;
+    font-size: 25px;
+    margin: 0 0 0 3%;
+    color: #FFA451;
+    transition: 0.5s ease;
+}
+
+.choose_package-content:hover .price {
+    top: 48.5%;
+    margin: 0 0 0 4%;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.choose_package-container .explain-content {
+    margin: 5% 0;
+    color: #828282;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 25px;
+}
+
+.choose_package-container .choose_package-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.choose_package-btn button {
+    background-color: #FAC069;
+    padding: 15px 45px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Kavoon", serif;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.choose_package-btn button:hover {
+    background-color: #faad3a;
+    padding: 17px 50px;
+    transition: 0.5s ease;
+}

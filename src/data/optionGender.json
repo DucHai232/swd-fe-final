@@ -1,0 +1,15 @@
+[
+    
+    {
+        "value": "male",
+        "label": "Nam"
+      },
+      {
+        "value": "female",
+        "label": "Nữ"
+      },
+      {
+        "value": "all",
+        "label": "Tất cả"
+      }
+]

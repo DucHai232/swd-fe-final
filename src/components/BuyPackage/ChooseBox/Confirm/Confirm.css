@@ -1,0 +1,28 @@
+.confirm-container{
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/Background-homepage4.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.confirm-container .confirm-title{
+    margin: 0;
+    line-height: 50px;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 25px;
+    color: #ff00a2;
+    padding: 2% 0;
+
+}
+
+.confirm-container .confirm-content{
+    padding: 0 0 5%;
+}
+.confirm-content p{
+    margin: 0;
+    line-height: 50px;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    color: black;
+}
