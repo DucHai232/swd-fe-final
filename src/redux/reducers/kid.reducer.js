@@ -8,14 +8,14 @@ const kidReducer = (
   switch (type) {
     case actionsType.KID_START:
       return { ...state, loading: true };
-    case actionsType.KID_SUCCESS:
+    case actionsType.GET_KID_SUCCESS:
       return {
         ...state,
         dataKids: payload?.kidProfilesByUserId,
         loading: false,
         error: "",
       };
-    case "KID_CREATE_SUCCESS":
+    case actionsType.KID_CREATE_SUCCESS:
       const newKidProfile = [...state.dataKids, payload];
       return {
         ...state,

@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth.action";
 import { message } from "antd";
 import store from "../../store/ReduxStore";
+import { register } from "../../apis/auth.request";
 
 const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
   const styleContainer = () => {
@@ -73,15 +74,33 @@ const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
     }),
     onSubmit: async (values) => {
       try {
-        await dispatch(login(values));
-        const res = store.getState().authReducer.res;
-        if (res?.success) {
-          message.success(res.message);
-          formik.handleReset();
-          navigate("/");
+        if (comp === "login") {
+          await dispatch(login(values));
+          const res = store.getState().authReducer.res;
+          if (res?.success) {
+            message.success(res.message);
+            formik.handleReset();
+            navigate("/");
+          } else {
+            message.error(res.message);
+          }
         } else {
-          message.error(res.message);
+          const response = await register(values);
+          if (response.data.success) {
+            message.success(response.data.message);
+            navigate("/login");
+          } else {
+            message.error(response.data.message);
+          }
         }
+        // const res = store.getState().authReducer.res;
+        // if (res?.success) {
+        //   message.success(res.message);
+        //   formik.handleReset();
+        //   navigate("/");
+        // } else {
+        //   message.error(res.message);
+        // }
       } catch (error) {
         console.log(error.message);
       }

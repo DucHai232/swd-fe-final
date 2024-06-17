@@ -1,0 +1,153 @@
+.create_kid-container {
+    width: 100%;
+    /* background-color: #e9e6e6; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 430px;
+}
+
+.breadcrumb-wrapper {
+    flex-grow: 1; /* Để chiếm toàn bộ chiều rộng của thẻ cha */
+    display: flex;
+    justify-content: flex-start; /* Căn về phía bên trái */
+}
+
+/* Chỉnh chữ trong breadcump của kid's profile */
+.create_kid-container .ant-breadcrumb-link {
+    color: #454545;
+    /* background-color: lightgrey; */
+    padding: 8px 10px;
+    border-radius: 20px;
+    font-size: 17px !important;
+    /* font-family: "Josefin Sans", sans-serif; */
+}
+
+/* Chỉnh dấu / trong breadcump của kid's profile */
+.create_kid-container .ant-breadcrumb-separator {
+    font-size: 20px;
+    color: #454545;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.create_kid-container .field{
+    width: 90%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.field p{
+    color: #454545;
+    font-size: 20px;
+    width: 15%;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: bold;
+}
+.field input{
+    width: 85%;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    padding-left: 2%;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    color: #a8a8a8;
+    background-color: #F4F4F3;
+}
+.field input:focus{
+    outline: none;
+}
+
+
+.create_kid-container .two-field{
+    width: 90%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.two-field .field-to-select{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.two-field .field-to-select p {
+    color: #454545;
+    font-size: 20px;
+    width: 30%;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: bold;
+    margin-right: 10%;
+}
+
+.field-to-select .birth-field{
+    width: 95%;
+    height: 30px !important;
+    margin-top: -2%;
+}
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
+    height: 30px;
+    border: none;
+    overflow: hidden;
+    border-radius: 20px !important;
+    background-color: #f6f6f6;
+}
+.custom-datepicker input {
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    /* padding-left: 2%; */
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    /* color: #666666; */
+    /* background-color: #F4F4F3; */
+}
+
+
+.field-to-select .select-field{
+    width: 85%;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    padding-left: 2%;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    color: #a8a8a8;
+    background-color: #F4F4F3;
+
+    /* -webkit-appearance: none;  */
+
+    margin-right: 7%;
+}
+.field-to-select .select-field option{
+    width: 70%; 
+    
+}
+.select-field:focus{
+    outline: none;
+}
+
+
+.create_kid-container .btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.create_kid-container .btn button{
+    background-color: #7CADFF;
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.create_kid-container .btn button:hover{
+    background-color: #5e96f8;
+}

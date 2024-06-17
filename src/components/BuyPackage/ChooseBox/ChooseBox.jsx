@@ -13,6 +13,7 @@ import { getDataPackage } from "../../../redux/actions/package.action";
 import { getThemes } from "../../../redux/actions/theme.action";
 import { orderPackage } from "../../../redux/actions/package-order.action";
 import store from "../../../store/ReduxStore";
+import getUserLocalstorage from "../../../utils/UserCurrent";
 
 const ChooseBox = () => {
   const { id } = useParams();
@@ -102,7 +103,7 @@ const ChooseBox = () => {
   const packageChoose = useSelector(
     (state) => state.packageReducer?.packages
   ).filter((el) => el.id == id)[0];
-  const user = JSON.parse(localStorage.getItem("user")).user;
+  const user = getUserLocalstorage();
   const kid = useSelector((state) => state.kidReducer?.dataKids).filter(
     (el) => el.id === selectedRowKey
   )[0];

@@ -8,64 +8,41 @@ import package4 from "/assets/Package4.jpg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPackage } from "../../../redux/actions/package.action";
+import getUserLocalstorage from "../../../utils/UserCurrent";
+import { message } from "antd";
+import { getKidProfile } from "../../../redux/actions/kid.action";
 
 const ChoosePackage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const listPackage = [
-    {
-      id: 1,
-      img: package1,
-      title: "Package 1",
-      duration: "1 month",
-      noOfBoxes: 1,
-      sale: 0,
-      price: "500.000",
-    },
-    {
-      id: 2,
-      img: package2,
-      title: "Package 2",
-      duration: "3 months",
-      noOfBoxes: 3,
-      sale: 5,
-      price: "1.425.000",
-    },
-    {
-      id: 3,
-      img: package3,
-      title: "Package 3",
-      duration: "6 month",
-      noOfBoxes: 6,
-      sale: 8,
-      price: "2.760.000",
-    },
-    {
-      id: 4,
-      img: package4,
-      title: "Package 4",
-      duration: "12 month",
-      noOfBoxes: 21,
-      sale: 10,
-      price: "5.400.000",
-    },
-  ];
-  const packageTemplate = [package1, package2, package3, package4];
-
   const [selectedId, setSelectedId] = useState(null);
+
+  useEffect(() => {
+    dispatch(getDataPackage("", 1));
+    dispatch(getKidProfile());
+  }, []);
+  const packages = useSelector((state) => state.packageReducer?.packages);
+  const kidOfUserCurrent = useSelector((state) => state.kidReducer?.dataKids);
+  console.log(kidOfUserCurrent);
 
   const handleClick = (id) => {
     setSelectedId(id);
   };
   const handleButtonClick = () => {
-    navigate(`/buy-package/choose-box/${selectedId}`);
-    window.scrollTo(0, 0);
+    const user = getUserLocalstorage();
+    if (!user) {
+      message.warning("Vui lòng đăng nhập mới mua hàng");
+      navigate("/login");
+    }
+    if (kidOfUserCurrent.length === 0) {
+      message.warning("Tạo tài khoản cho con rồi vào mua hàng nhé!");
+      navigate("/user/kid-profile");
+    }
+    if (user && kidOfUserCurrent.length > 0) {
+      navigate(`/buy-package/choose-box/${selectedId}`);
+      window.scrollTo(0, 0);
+    }
   };
-
-  useEffect(() => {
-    dispatch(getDataPackage("", 1));
-  }, []);
-  const packages = useSelector((state) => state.packageReducer?.packages);
 
   return (
     <div className="choose_package-container">

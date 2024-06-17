@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Admin from "./pages/Admin/Admin";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
@@ -18,13 +18,22 @@ import Revenue from "./components/Admin/Revenue/Revenue";
 import ManagePackage from "./components/Admin/Package/ManagePackage";
 import HistoryBox from "./components/Admin/Box/HistoryBox";
 import ManageBox from "./components/Admin/Box/ManageBox";
+import { useSelector } from "react-redux";
 
 function App() {
+  const user = useSelector((state) => state.authReducer?.auth?.user);
+  console.log(user);
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin/*" element={<Admin />}>
+        <Route
+          path="/"
+          element={user?.role == "ADMIN" ? <Navigate to={"admin"} /> : <Home />}
+        />
+        <Route
+          path="/admin/*"
+          element={user?.role === "ADMIN" ? <Admin /> : <Navigate to={"/"} />}
+        >
           <Route path="manage-theme" element={<ManageTheme />} />
           <Route path="manage-product" element={<ManageProduct />} />
           <Route path="manage-cart/revenue" element={<Revenue />} />

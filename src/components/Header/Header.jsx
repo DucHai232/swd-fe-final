@@ -43,12 +43,17 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logout());
     message.success("Đã đăng xuất");
+    navigate("/");
     setModalHide(false);
   };
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className={`header-whole-container ${showHeader ? "show" : ""}`}>
+      {modalHide && (
+        <div className="overlay" onClick={() => setModalHide(false)}></div>
+      )}
+
       <div className={`header-container ${showHeader ? "show-down" : ""}`}>
         <div className="header-left">
           <img src={logo} className="logo" onClick={handleClick} />
@@ -76,8 +81,12 @@ const Header = () => {
         {modalHide && (
           <div className="modal-up">
             <ul>
-              <li>Personal information</li>
-              <li>Account management</li>
+              <li onClick={() => navigate("/user/user-profile")}>
+                Personal information
+              </li>
+              <li onClick={() => navigate("/user/kid-profile")}>
+                Kids management
+              </li>
               <li onClick={handleLogout}>Sign out</li>
             </ul>
           </div>

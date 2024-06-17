@@ -5,6 +5,7 @@ import { getKidProfile } from "../../../../redux/actions/kid.action";
 import { getDataPackage } from "../../../../redux/actions/package.action";
 import { getThemes } from "../../../../redux/actions/theme.action";
 import { useParams } from "react-router-dom";
+import getUserLocalstorage from "../../../../utils/UserCurrent";
 
 const Confirm = ({ selectedRowKey, selectedThemeId }) => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const Confirm = ({ selectedRowKey, selectedThemeId }) => {
   const themeChoose = useSelector((state) => state.themeReducer?.themes).filter(
     (el) => el.id === selectedThemeId
   )[0];
-  const user = JSON.parse(localStorage.getItem("user")).user;
+  const user = getUserLocalstorage();
   return (
     <div className="confirm-container">
       <p className="confirm-title">

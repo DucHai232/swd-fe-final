@@ -11,14 +11,14 @@ export const getKidProfile = () => {
   });
 };
 
-// export const createInfoProfileKid = (data) => {
-//   const token = getToken();
-//   return API.post("/create-profile", data, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
+export const createInfoProfileKid = (data) => {
+  const token = getToken();
+  return API.post("/create-profile", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 // export const banProfileKid = (id, status) => {
 //   const token = getToken();
