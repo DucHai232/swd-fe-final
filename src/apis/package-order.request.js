@@ -8,12 +8,12 @@ export const orderPackage = (packageId, orderData) => {
   });
 };
 
-// export const getPackageOrderByUserId = () => {
-//   const token = getToken();
-//   return API.get("/get-packageorderbyuserid", {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-// };
+export const getPackageOrderByUserId = () => {
+  const token = getToken();
+  return API.get("/get-packageorderbyuserid", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
 
 // export const getPackageOrderByIdPk = (packageOrderId) => {
 //   const token = getToken();

@@ -54,8 +54,6 @@ const UserProfile = () => {
           <Box className="box">
             <TabList onChange={handleChange} aria-label="lab API tabs example">
               <Tab label="Profile" value="1" className="title" />
-              {/* <Tab label="Item Two" value="2" className='title'/>
-            <Tab label="Item Three" value="3" /> className='title'*/}
             </TabList>
           </Box>
           <TabPanel value="1" className="content">
@@ -127,9 +125,6 @@ const UserProfile = () => {
               )}
             </div>
           </TabPanel>
-
-          {/* <TabPanel value="2">Item Two</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel> */}
         </TabContext>
       </Box>
     </div>

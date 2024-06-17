@@ -102,7 +102,6 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
     const previewUrls = files.map((file) => URL.createObjectURL(file));
     setPreviewImages(previewUrls);
   };
-  //   console.log(previewImages);
   return (
     <div>
       <Modal

@@ -23,6 +23,22 @@ export const createProfileKid = (data) => async (dispatch) => {
   }
 };
 
+export const updateProfileKid = (profileId, data) => async (dispatch) => {
+  dispatch({ type: actionsType.KID_START });
+  try {
+    const response = await KidApi.updateInfoProfileKid(profileId, data);
+    dispatch({
+      type: actionsType.KID_UPDATE_SUCCESS,
+      payload: { response, profileId },
+    });
+  } catch (error) {
+    dispatch({
+      type: actionsType.KID_FAIL,
+      payload: "",
+    });
+  }
+};
+
 // export const banProfileKid = (id, status) => async (dispatch) => {
 //   dispatch({ type: "KID_START" });
 //   try {

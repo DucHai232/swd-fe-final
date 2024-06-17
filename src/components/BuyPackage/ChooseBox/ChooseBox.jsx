@@ -120,10 +120,9 @@ const ChooseBox = () => {
     await dispatch(orderPackage(id, confirmUserOrder));
     const confirmOrderFromServer =
       store.getState().packageOrderReducer.packageOrders[0];
-    console.log(confirmOrderFromServer);
     if (confirmOrderFromServer.success) {
       message.success(confirmOrderFromServer.messsage); //loi ben server messsage => message
-      navigate("/"); //di chuyen den page thanh toan
+      navigate("/user/order"); //di chuyen den page thanh toan
     } else {
       message.error(confirmOrderFromServer.message);
     }

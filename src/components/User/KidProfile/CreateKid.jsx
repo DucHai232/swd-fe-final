@@ -7,8 +7,17 @@ import { Breadcrumb, message } from "antd";
 import { formatDate } from "../../../utils/FormatDate";
 import dayjs from "dayjs";
 import { createInfoProfileKid } from "../../../apis/kid.request";
+import { useDispatch } from "react-redux";
+import { updateProfileKid } from "../../../redux/actions/kid.action";
+import store from "../../../store/ReduxStore";
 
-export default function CreateKid({ kid, showTable, isDisable, setValue }) {
+export default function CreateKid({
+  kidId,
+  kid,
+  showTable,
+  isDisable,
+  setValue,
+}) {
   // làm chức năng Update Profile
   const [profile, setProfile] = useState({
     themeId: "5",
@@ -27,13 +36,14 @@ export default function CreateKid({ kid, showTable, isDisable, setValue }) {
   const [hasSelectedMaterial, setHasSelectedMaterial] = useState(false);
   const [hasSelectedType, setHasSelectedType] = useState(false);
   const [hasSelectedMadeIn, setHasSelectedMadeIn] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Nếu kid có giá trị thì gán giá trị profile
     if (kid) {
       setProfile({
         fullName: kid.fullName || "",
-        yob: null,
+        yob: kid.yob || null,
         gender: kid.gender || "",
         descriptionHobby: kid.descriptionHobby || "",
         type: kid.type || "",
@@ -86,7 +96,16 @@ export default function CreateKid({ kid, showTable, isDisable, setValue }) {
     }
   };
 
-  const handleUpdateKidProfile = () => {};
+  const handleUpdateKidProfile = async () => {
+    await dispatch(updateProfileKid(kidId, profile));
+    const response = store.getState().kidReducer.res;
+    if (response.success) {
+      message.success(response.message);
+      showTable();
+    } else {
+      message.error(response.message);
+    }
+  };
 
   const handleCreateKidProfile = async () => {
     const response = await createInfoProfileKid(profile);

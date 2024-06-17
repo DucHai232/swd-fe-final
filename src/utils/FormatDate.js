@@ -5,3 +5,8 @@ export const formatDate = (date) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const formatDateSplitT = (date) => {
+  let datePart = date.split("T")[0];
+  return datePart;
+};

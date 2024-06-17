@@ -141,6 +141,7 @@ export default function TableKid() {
   const [showTable, setShowTable] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [kid, setKid] = useState({});
+  const [kidId, setKidId] = useState("");
   const [dataTmp, setDataTmp] = useState(data);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -263,6 +264,7 @@ export default function TableKid() {
     setShowTable(true);
     setIsDisable(false);
     setKid(record);
+    setKidId(record.id);
   };
 
   const handleShowTable = () => {
@@ -355,6 +357,7 @@ export default function TableKid() {
       ) : (
         <CreateKid
           kid={kid}
+          kidId={kidId}
           showTable={handleShowTable}
           isDisable={isDisable}
         />

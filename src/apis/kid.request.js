@@ -20,6 +20,15 @@ export const createInfoProfileKid = (data) => {
   });
 };
 
+export const updateInfoProfileKid = (profileId, dataUpdate) => {
+  const token = getToken();
+  return API.patch(`/update-profile/${profileId}`, dataUpdate, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 // export const banProfileKid = (id, status) => {
 //   const token = getToken();
 //   return API.patch(

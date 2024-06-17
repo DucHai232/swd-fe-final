@@ -1,7 +1,7 @@
 import actionsType from "../actions/action.types";
 
 const kidReducer = (
-  state = { dataKids: [], loading: false, error: "" },
+  state = { dataKids: [], loading: false, error: "", res: null },
   action
 ) => {
   const { type, payload } = action;
@@ -21,6 +21,20 @@ const kidReducer = (
         ...state,
         dataKids: newKidProfile,
         loading: false,
+      };
+    case actionsType.KID_UPDATE_SUCCESS:
+      const { response, profileId } = payload;
+      const updateKidProfile = state.dataKids.map((kid) => {
+        if (kid.id === profileId) {
+          return { ...kid, ...response.data?.kidProfile };
+        }
+        return kid;
+      });
+      return {
+        ...state,
+        dataKids: updateKidProfile,
+        loading: false,
+        res: response.data,
       };
     case "KID_BAN_SUCCESS":
       const { id, status } = payload;
