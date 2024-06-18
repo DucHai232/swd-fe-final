@@ -23,7 +23,6 @@ const ChoosePackage = () => {
   }, []);
   const packages = useSelector((state) => state.packageReducer?.packages);
   const kidOfUserCurrent = useSelector((state) => state.kidReducer?.dataKids);
-
   const handleClick = (id) => {
     setSelectedId(id);
   };

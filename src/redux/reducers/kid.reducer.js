@@ -11,7 +11,7 @@ const kidReducer = (
     case actionsType.GET_KID_SUCCESS:
       return {
         ...state,
-        dataKids: payload?.kidProfilesByUserId,
+        dataKids: payload?.kidProfiles,
         loading: false,
         error: "",
       };

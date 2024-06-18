@@ -114,6 +114,7 @@ const Admin = () => {
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={items}
+          style={{ height: "100vh" }}
           onClick={handleMenuClick}
         />
       </Sider>

@@ -14,6 +14,12 @@ import { getThemes } from "../../../redux/actions/theme.action";
 import { orderPackage } from "../../../redux/actions/package-order.action";
 import store from "../../../store/ReduxStore";
 import getUserLocalstorage from "../../../utils/UserCurrent";
+import { updateInfoProfileKid } from "../../../apis/kid.request";
+import {
+  loadFromLocalstorage,
+  removeLocalstorage,
+  saveLocalstorage,
+} from "../../../utils/LocalstorageMySteryBox";
 
 const ChooseBox = () => {
   const { id } = useParams();
@@ -26,6 +32,7 @@ const ChooseBox = () => {
     current: 1,
     pageSize: 5,
   });
+  const [dataConfirm, setDataConfirm] = useState({});
   const [selectedBoxId, setSelectedBoxId] = useState(null);
   const steps = [
     {
@@ -56,6 +63,7 @@ const ChooseBox = () => {
         <Confirm
           selectedRowKey={selectedRowKey}
           selectedThemeId={selectedThemeId}
+          setDataConfirm={setDataConfirm}
         />
       ),
     },
@@ -73,9 +81,15 @@ const ChooseBox = () => {
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
 
-  const next = () => {
+  const next = async () => {
     setCurrent(current + 1);
     window.scrollTo(0, 350);
+    if (current + 1 === 2) {
+      await updateInfoProfileKid(selectedRowKey, { themeId: selectedThemeId });
+    }
+    if (current + 1 === 3) {
+      saveLocalstorage("data-order", dataConfirm);
+    }
   };
   const prev = () => {
     setCurrent(current - 1);
@@ -95,34 +109,15 @@ const ChooseBox = () => {
     border: `1px dashed ${token.colorBorder}`,
     marginTop: 16,
   };
-  useEffect(() => {
-    dispatch(getKidProfile());
-    dispatch(getDataPackage("", 1));
-    dispatch(getThemes("", 1));
-  }, []);
-  const packageChoose = useSelector(
-    (state) => state.packageReducer?.packages
-  ).filter((el) => el.id == id)[0];
-  const user = getUserLocalstorage();
-  const kid = useSelector((state) => state.kidReducer?.dataKids).filter(
-    (el) => el.id === selectedRowKey
-  )[0];
   const handleDone = async () => {
-    const confirmUserOrder = {
-      kidId: selectedRowKey,
-      totalPrice: packageChoose?.price,
-      nameOfAdult: user?.fullName,
-      nameOfKid: kid?.fullName,
-      phone: user?.phone,
-      email: user?.email,
-      additionalNotes: "This is a sample additional note.",
-    };
+    const confirmUserOrder = loadFromLocalstorage("data-order");
     await dispatch(orderPackage(id, confirmUserOrder));
     const confirmOrderFromServer =
       store.getState().packageOrderReducer.packageOrders[0];
     if (confirmOrderFromServer.success) {
-      message.success(confirmOrderFromServer.messsage); //loi ben server messsage => message
-      navigate("/user/order"); //di chuyen den page thanh toan
+      message.success(confirmOrderFromServer.messsage);
+      removeLocalstorage("data-order");
+      navigate("/user/order");
     } else {
       message.error(confirmOrderFromServer.message);
     }

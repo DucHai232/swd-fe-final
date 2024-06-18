@@ -10,6 +10,7 @@
 
 .choose_theme-container .choose_theme-item{
     width: 25%;
+    height: 400px;
     margin-bottom: 5%;
     background-color: #F9F8F2;
     /* border: 8px solid #44D2FF; */

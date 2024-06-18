@@ -20,7 +20,7 @@ export default function CreateKid({
 }) {
   // làm chức năng Update Profile
   const [profile, setProfile] = useState({
-    themeId: "5",
+    // themeId: "5",
     fullName: "",
     yob: null,
     gender: "",

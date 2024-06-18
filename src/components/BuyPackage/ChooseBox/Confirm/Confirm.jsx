@@ -5,9 +5,8 @@ import { getKidProfile } from "../../../../redux/actions/kid.action";
 import { getDataPackage } from "../../../../redux/actions/package.action";
 import { getThemes } from "../../../../redux/actions/theme.action";
 import { useParams } from "react-router-dom";
-import getUserLocalstorage from "../../../../utils/UserCurrent";
 
-const Confirm = ({ selectedRowKey, selectedThemeId }) => {
+const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,7 +23,21 @@ const Confirm = ({ selectedRowKey, selectedThemeId }) => {
   const themeChoose = useSelector((state) => state.themeReducer?.themes).filter(
     (el) => el.id === selectedThemeId
   )[0];
-  const user = getUserLocalstorage();
+
+  useEffect(() => {
+    if (kid && packageChoose && themeChoose) {
+      const confirmData = {
+        kidId: kid?.id,
+        totalPrice: packageChoose?.price,
+        nameOfAdult: kid.adult?.fullName,
+        nameOfKid: kid?.fullName,
+        phone: kid.adult?.phone,
+        email: kid.adult?.email,
+        address: kid.adult?.address,
+      };
+      setDataConfirm(confirmData);
+    }
+  }, [kid, packageChoose, themeChoose]);
   return (
     <div className="confirm-container">
       <p className="confirm-title">
@@ -37,13 +50,16 @@ const Confirm = ({ selectedRowKey, selectedThemeId }) => {
           <strong>Kid's name: </strong> {kid?.fullName}
         </p>
         <p>
-          <strong>Parent's name: </strong> {user?.fullName}
+          <strong>Parent's name: </strong> {kid?.adult?.fullName}
         </p>
         <p>
-          <strong>Phone number: </strong> {user?.phone}
+          <strong>Phone number: </strong> {kid?.adult?.phone}
         </p>
         <p>
-          <strong>Email: </strong> {user?.email}
+          <strong>Email: </strong> {kid?.adult?.email}
+        </p>
+        <p>
+          <strong>Address: </strong> {kid?.adult?.address}
         </p>
         <p>
           <strong>Package: </strong> {packageChoose?.name}
