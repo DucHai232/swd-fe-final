@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Confirm.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getKidProfile } from "../../../../redux/actions/kid.action";
@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getKidProfile());
     dispatch(getDataPackage("", 1));
@@ -23,21 +24,24 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const themeChoose = useSelector((state) => state.themeReducer?.themes).filter(
     (el) => el.id === selectedThemeId
   )[0];
+  const [data, setData] = useState({
+    kidId: kid?.id,
+    totalPrice: packageChoose?.price,
+    nameOfAdult: kid.adult?.fullName,
+    nameOfKid: kid?.fullName,
+    phone: kid.adult?.phone,
+    email: kid.adult?.email,
+    address: kid.adult?.address,
+  });
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     if (kid && packageChoose && themeChoose) {
-      const confirmData = {
-        kidId: kid?.id,
-        totalPrice: packageChoose?.price,
-        nameOfAdult: kid.adult?.fullName,
-        nameOfKid: kid?.fullName,
-        phone: kid.adult?.phone,
-        email: kid.adult?.email,
-        address: kid.adult?.address,
-      };
-      setDataConfirm(confirmData);
+      setDataConfirm(data);
     }
-  }, [kid, packageChoose, themeChoose]);
+  }, [kid, packageChoose, themeChoose, data]);
   return (
     <div className="confirm-container">
       <p className="confirm-title">
@@ -53,13 +57,34 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
           <strong>Parent's name: </strong> {kid?.adult?.fullName}
         </p>
         <p>
-          <strong>Phone number: </strong> {kid?.adult?.phone}
+          <strong>Phone number: </strong>{" "}
+          <input
+            name="phone"
+            type="number"
+            value={data?.phone}
+            className="input-confirm"
+            onChange={(e) => handleChange(e)}
+          />
         </p>
         <p>
-          <strong>Email: </strong> {kid?.adult?.email}
+          <strong>Email: </strong>{" "}
+          <input
+            name="email"
+            type="email"
+            value={data?.email}
+            className="input-confirm"
+            onChange={(e) => handleChange(e)}
+          />
         </p>
         <p>
-          <strong>Address: </strong> {kid?.adult?.address}
+          <strong>Address: </strong>{" "}
+          <input
+            name="address"
+            type="text"
+            value={data?.address}
+            className="input-confirm"
+            onChange={(e) => handleChange(e)}
+          />
         </p>
         <p>
           <strong>Package: </strong> {packageChoose?.name}

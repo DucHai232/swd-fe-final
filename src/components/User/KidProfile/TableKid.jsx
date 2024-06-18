@@ -311,6 +311,11 @@ export default function TableKid() {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
+      render: (gender) => (
+        <p>
+          {gender === "MALE" ? "Boy" : gender === "FEMALE" ? "Girl" : "Unisex"}
+        </p>
+      ),
       width: "20%",
     },
     {

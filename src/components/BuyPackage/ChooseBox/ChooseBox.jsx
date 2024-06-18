@@ -8,18 +8,16 @@ import Confirm from "./Confirm/Confirm";
 import ChooseBoxStep from "./ChooseBoxStep/ChooseBoxStep";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getKidProfile } from "../../../redux/actions/kid.action";
-import { getDataPackage } from "../../../redux/actions/package.action";
-import { getThemes } from "../../../redux/actions/theme.action";
 import { orderPackage } from "../../../redux/actions/package-order.action";
 import store from "../../../store/ReduxStore";
-import getUserLocalstorage from "../../../utils/UserCurrent";
 import { updateInfoProfileKid } from "../../../apis/kid.request";
 import {
   loadFromLocalstorage,
   removeLocalstorage,
   saveLocalstorage,
 } from "../../../utils/LocalstorageMySteryBox";
+import { createPackageInPeriod } from "../../../apis/packageInPeriods.request";
+import { getCurrentPeriod } from "../../../apis/period.request";
 
 const ChooseBox = () => {
   const { id } = useParams();
@@ -28,6 +26,7 @@ const ChooseBox = () => {
   const [isNextEnabled, setNextEnabled] = useState(false);
   const [selectedThemeId, setSelectedThemeId] = useState(null);
   const [selectedRowKey, setSelectedRowKey] = useState(null);
+  const [currentPeriod, setCurrentPeriod] = useState();
   const [paginationState, setPaginationState] = useState({
     current: 1,
     pageSize: 5,
@@ -77,9 +76,16 @@ const ChooseBox = () => {
       ),
     },
   ];
-
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getCurrentPeriod();
+      setCurrentPeriod(response?.data.periodCurrent);
+    };
+    fetchData();
+  }, []);
 
   const next = async () => {
     setCurrent(current + 1);
@@ -112,9 +118,13 @@ const ChooseBox = () => {
   const handleDone = async () => {
     const confirmUserOrder = loadFromLocalstorage("data-order");
     await dispatch(orderPackage(id, confirmUserOrder));
-    const confirmOrderFromServer =
-      store.getState().packageOrderReducer.packageOrders[0];
-    if (confirmOrderFromServer.success) {
+    const confirmOrderFromServer = store.getState().packageOrderReducer?.order;
+    if (confirmOrderFromServer && confirmOrderFromServer.success) {
+      await createPackageInPeriod({
+        periodId: currentPeriod?.id,
+        boxId: selectedBoxId,
+        packageOrderId: confirmOrderFromServer?.order?.id,
+      });
       message.success(confirmOrderFromServer.messsage);
       removeLocalstorage("data-order");
       navigate("/user/order");
