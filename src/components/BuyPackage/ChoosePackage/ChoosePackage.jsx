@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./ChoosePackage.css";
-
 import package1 from "/assets/Package1.jpg";
 import package2 from "/assets/Package2.jpg";
 import package3 from "/assets/Package3.jpg";
@@ -11,7 +10,7 @@ import { getDataPackage } from "../../../redux/actions/package.action";
 import getUserLocalstorage from "../../../utils/UserCurrent";
 import { message } from "antd";
 import { getKidProfile } from "../../../redux/actions/kid.action";
-
+import { LoadingOutlined } from "@ant-design/icons";
 const ChoosePackage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const ChoosePackage = () => {
     dispatch(getDataPackage("", 1));
     dispatch(getKidProfile());
   }, []);
-  const packages = useSelector((state) => state.packageReducer?.packages);
+  const responsePackages = useSelector((state) => state.packageReducer);
   const kidOfUserCurrent = useSelector((state) => state.kidReducer?.dataKids);
   const handleClick = (id) => {
     setSelectedId(id);
@@ -45,7 +44,7 @@ const ChoosePackage = () => {
   return (
     <div className="choose_package-container">
       <p className="choose_package-title">Package price</p>
-      {packages.map((item) => (
+      {responsePackages?.packages?.map((item) => (
         <div
           className="choose_package-content"
           key={item.id}
@@ -82,6 +81,18 @@ const ChoosePackage = () => {
           </p>
         </div>
       ))}
+      {responsePackages?.loading && (
+        <p>
+          <LoadingOutlined
+            style={{
+              fontSize: "30px",
+              position: "absolute",
+              top: "30%",
+              left: "50%",
+            }}
+          />
+        </p>
+      )}
 
       <p className="explain-content">
         Here, we will sell combo packs, depending on the time you choose to buy,

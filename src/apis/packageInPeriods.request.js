@@ -22,3 +22,7 @@ export const getAllPackageInPeriods = () => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const chooseProductInPeriods = (productId, packageOrderId) => {
+  return API.get(`/add-product-packageinperiod/${productId}/${packageOrderId}`);
+};

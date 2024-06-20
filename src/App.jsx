@@ -19,9 +19,13 @@ import ManagePackage from "./components/Admin/Package/ManagePackage";
 import HistoryBox from "./components/Admin/Box/HistoryBox";
 import ManageBox from "./components/Admin/Box/ManageBox";
 import { useSelector } from "react-redux";
+import ManageOrder from "./components/Admin/Status/ManageOrder";
+import getUserLocalstorage from "./utils/UserCurrent";
 
 function App() {
-  const user = useSelector((state) => state.authReducer?.auth?.user);
+  const user =
+    useSelector((state) => state.authReducer?.auth?.user) ||
+    getUserLocalstorage();
   return (
     <>
       <Routes>
@@ -36,6 +40,7 @@ function App() {
           <Route path="manage-theme" element={<ManageTheme />} />
           <Route path="manage-product" element={<ManageProduct />} />
           <Route path="manage-cart/revenue" element={<Revenue />} />
+          <Route path="manage-cart/status" element={<ManageOrder />} />
           <Route path="manage-package" element={<ManagePackage />} />
           <Route path="manage-box-history" element={<HistoryBox />} />
           <Route path="manage-box" element={<ManageBox />} />

@@ -1,0 +1,19 @@
+.btn-back{
+    border: none;
+    background-color: tomato;
+    padding: 14px;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.random-products{
+
+}
+
+.random-products ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px
+}

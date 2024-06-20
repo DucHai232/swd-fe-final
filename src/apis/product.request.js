@@ -27,3 +27,7 @@ export const deleteProductById = (productId) => {
 export const createProduct = (data) => {
   return API.post("/create-product", data);
 };
+
+export const randomProduct = (packageId, kidId) => {
+  return API.get(`/random-product/${kidId}/${packageId}`);
+};
