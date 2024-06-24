@@ -1,0 +1,30 @@
+[
+    {
+      "value": "Đồ chơi",
+      "label": "Toys"
+    },
+    {
+        "value": "Robot",
+        "label": "Robot "
+    },
+    {
+      "value": "Búp bê",
+      "label": "Doll "
+    },
+    {
+      "value": "Trống",
+      "label": "Drum "
+    },
+    {
+      "value": "Xe hơi",
+      "label": "Car"
+    },
+    {
+      "value": "Bóng",
+      "label": "Balloon"
+    },
+    {
+      "value": "Tàu",
+      "label": "Train"
+    }
+  ]

@@ -7,6 +7,6 @@ export const formatDate = (date) => {
 };
 
 export const formatDateSplitT = (date) => {
-  let datePart = date.split("T")[0];
+  let datePart = date?.split("T")[0];
   return datePart;
 };

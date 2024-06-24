@@ -26,3 +26,7 @@ export const getAllPackageInPeriods = () => {
 export const chooseProductInPeriods = (productId, packageOrderId) => {
   return API.get(`/add-product-packageinperiod/${productId}/${packageOrderId}`);
 };
+
+export const getDataPackagePeriodOfPackageOrder = (packageOrderId) => {
+  return API.get(`/get-packageinperiod-of-packageorder/${packageOrderId}`);
+};

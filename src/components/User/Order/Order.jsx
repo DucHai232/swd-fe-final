@@ -5,11 +5,15 @@ import { formatDateSplitT } from "../../../utils/FormatDate";
 import { getPackage } from "../../../apis/package.request";
 import { Breadcrumb } from "antd";
 import { FaEye } from "react-icons/fa";
+import ChooseProduct from "./ChooseProduct";
+import { getDataPackagePeriodOfPackageOrder } from "../../../apis/packageInPeriods.request";
 
 const Order = () => {
   const [dataOrder, setDataOrder] = useState([]);
   const [packages, setPackages] = useState([]);
-  const [showDetail, setShowDetail] = useState(true);
+  const [openChooseProduct, setOpenChooseProduct] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [dataPackagePeriods, setDataPackagePeriods] = useState(null);
   const [keyMenu, setKeyMenu] = useState(null);
   useEffect(() => {
     const fetchOrder = async () => {
@@ -35,34 +39,41 @@ const Order = () => {
     const packageItem = packages?.find((pkg) => pkg.id == packageId);
     return packageItem ? packageItem.name : "Unknown Package";
   };
-  const handleShowDetail = (id) => {
+  const handleShowDetail = async (packageOrderId) => {
+    const response = await getDataPackagePeriodOfPackageOrder(packageOrderId);
+    setDataPackagePeriods(response.data?.data);
     setShowDetail(true);
   };
   const handleBreadcrumb = () => {
     setKeyMenu(null);
     setShowDetail(false);
   };
-  const renderProduct = () => {
+  const renderProduct = (data) => {
     return (
-      <ul>
+      <ul className="list-data">
         <li>
-          <strong>Tên sản phẩm: </strong>Đồ chơi vui vẻ
+          <strong>Tên sản phẩm: </strong>
+          {data?.name}
         </li>
         <li>
-          <strong>Miêu tả: </strong>Xe đạp cho trẻ em, giúp trẻ rèn luyện sức
-          khỏe và kỹ năng cân bằng
+          <strong>Miêu tả: </strong>
+          {data?.description}
         </li>
         <li>
-          <strong>Màu sắc: </strong>xanh dương
+          <strong>Màu sắc: </strong>
+          {data?.color}
         </li>
         <li>
-          <strong>Xuất xứ: </strong>Trung quốc
+          <strong>Xuất xứ: </strong>
+          {data?.origin}
         </li>
         <li>
-          <strong>Chất liệu: </strong>Kim loại
+          <strong>Chất liệu: </strong>
+          {data?.material}
         </li>
         <li>
-          <strong>Loại đồ chơi: </strong>Đồ chơi ngoài trời
+          <strong>Loại đồ chơi: </strong>
+          {data?.type}
         </li>
         <li
           style={{
@@ -78,40 +89,60 @@ const Order = () => {
     );
   };
 
-  const renderPackage = () => {
+  const renderPackage = (data) => {
     return (
-      <ul>
+      <ul className="list-data">
         <li>
-          <strong>Tên package: </strong>Package 1
+          <strong>Tên package: </strong>
+          {data?.name}
         </li>
         <li>
-          <strong>Miêu tả: </strong>Bộ đồ chơi xây dựng giúp trẻ em phát triển
-          kỹ năng sáng tạo và logic.
+          <strong>Miêu tả: </strong> giảm {data?.description}
         </li>
         <li>
-          <strong>Giá thành: </strong>350.000 VND
+          <strong>Giá thành: </strong>
+          {Number(data?.price).toLocaleString()} VND
         </li>
       </ul>
     );
   };
 
-  const renderStatus = () => {
+  const renderStatus = (data) => {
     return (
-      <ul>
+      <ul className="list-data">
         <li>
-          <strong>Thời gian mở: </strong>22/02/2024
+          <strong>Thời gian mở: </strong>
+          {formatDateSplitT(data?.openingDate) || "Đang thực hiện"}
         </li>
         <li>
-          <strong>Thời gian đóng gói: </strong>23/02/2024
+          <strong>Thời gian đóng gói: </strong>
+          {formatDateSplitT(data?.packagingDate) || "Đang thực hiện"}
         </li>
         <li>
-          <strong>Thời gian vận chuyển: </strong> 24/02/2024
+          <strong>Thời gian vận chuyển: </strong>{" "}
+          {formatDateSplitT(data?.deliveryDate) || "Đang thực hiện"}
         </li>
         <li>
-          <strong>Xác nhận giao hàng: </strong> Đang thực hiện
+          <strong>Xác nhận giao hàng: </strong>{" "}
+          {formatDateSplitT(data?.confirmDate) || "Đang thực hiện"}
         </li>
       </ul>
     );
+  };
+
+  const renderTextStatus = (status) => {
+    switch (status) {
+      case "OPEN":
+        return "Đang mở quà";
+      case "PACK":
+        return "Đang mở quả";
+      case "DELIVERY":
+        return "Đang vận chuyển";
+      case "CONFIRM":
+        return "Giao hàng thành công";
+      default:
+        return "";
+    }
   };
   return (
     <div className="order-container">
@@ -135,69 +166,88 @@ const Order = () => {
       </div>
 
       {showDetail ? (
-        <div className="detail-container">
-          <div className="nav">
-            <Breadcrumb
-              style={{
-                fontSize: "18px",
-                display: "flex",
-                alignItems: "center",
-              }}
-              items={[
-                {
-                  title: (
-                    <p
-                      onClick={() => handleBreadcrumb()}
-                      style={{ cursor: "pointer" }}
-                    >
-                      Orders
-                    </p>
-                  ),
-                },
-                {
-                  title: <p>Detail</p>,
-                },
-              ]}
-            />
-          </div>
-          <div className="list-product">
-            <div className="product">
-              <div className="left">
-                <ul>
-                  <li>
-                    <strong>Đơn hàng:</strong> Đơn hàng 1{" "}
-                  </li>
-                  <li className={keyMenu === "product" ? "active" : ""}>
-                    <strong>Thông tin sản phẩm:</strong> Đồ chơi trẻ em{" "}
-                    <FaEye
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setKeyMenu("product")}
-                    />
-                  </li>
-                  <li className={keyMenu === "package" ? "active" : ""}>
-                    <strong>Package:</strong> Package 1{" "}
-                    <FaEye
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setKeyMenu("package")}
-                    />
-                  </li>
-                  <li className={keyMenu === "status" ? "active" : ""}>
-                    <strong>Trạng thái:</strong> Đang vận chuyển{" "}
-                    <FaEye
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setKeyMenu("status")}
-                    />
-                  </li>
-                </ul>
-              </div>
-              <div className="right">
-                {keyMenu === "product" && renderProduct()}
-                {keyMenu === "package" && renderPackage()}
-                {keyMenu === "status" && renderStatus()}
-              </div>
+        !openChooseProduct ? (
+          <div className="detail-container">
+            <div className="nav">
+              <Breadcrumb
+                style={{
+                  fontSize: "18px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                items={[
+                  {
+                    title: (
+                      <p
+                        onClick={() => handleBreadcrumb()}
+                        style={{ cursor: "pointer" }}
+                      >
+                        Orders
+                      </p>
+                    ),
+                  },
+                  {
+                    title: <p>Detail</p>,
+                  },
+                ]}
+              />
             </div>
+            <div className="list-product">
+              {dataPackagePeriods.map((el) => (
+                <div className="product">
+                  <div className="left">
+                    <ul>
+                      <li>
+                        <strong>Đơn hàng:</strong> Đơn hàng 1{" "}
+                      </li>
+                      {el.dates.confirmDate && (
+                        <li className={keyMenu === "product" ? "active" : ""}>
+                          <strong>Thông tin sản phẩm:</strong> Đồ chơi trẻ em{" "}
+                          <FaEye
+                            style={{ cursor: "pointer" }}
+                            onClick={() => setKeyMenu("product")}
+                          />
+                        </li>
+                      )}
+
+                      <li className={keyMenu === "package" ? "active" : ""}>
+                        <strong>Package:</strong> Package 1{" "}
+                        <FaEye
+                          style={{ cursor: "pointer" }}
+                          onClick={() => setKeyMenu("package")}
+                        />
+                      </li>
+                      <li className={keyMenu === "status" ? "active" : ""}>
+                        <strong>Trạng thái:</strong>{" "}
+                        {renderTextStatus(el.status)}
+                        <FaEye
+                          style={{ cursor: "pointer" }}
+                          onClick={() => setKeyMenu("status")}
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="right">
+                    {keyMenu === "product" && renderProduct(el.product)}
+                    {keyMenu === "package" && renderPackage(el.packages)}
+                    {keyMenu === "status" && renderStatus(el.dates)}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              className="btn-product-next"
+              onClick={() => setOpenChooseProduct(true)}
+            >
+              Chọn sản phẩm tiếp theo
+            </button>
           </div>
-        </div>
+        ) : (
+          <ChooseProduct
+            handleBreadcrumb={handleBreadcrumb}
+            setOpenChooseProduct={setOpenChooseProduct}
+          />
+        )
       ) : (
         <div className="content">
           <table>

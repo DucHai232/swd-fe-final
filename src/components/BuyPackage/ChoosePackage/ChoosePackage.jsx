@@ -29,11 +29,11 @@ const ChoosePackage = () => {
     const user = getUserLocalstorage();
     if (!user) {
       message.warning("Vui lòng đăng nhập mới mua hàng");
-      navigate("/login");
+      return navigate("/login");
     }
     if (kidOfUserCurrent.length === 0) {
       message.warning("Tạo tài khoản cho con rồi vào mua hàng nhé!");
-      navigate("/user/kid-profile");
+      return navigate("/user/kid-profile");
     }
     if (user && kidOfUserCurrent.length > 0) {
       navigate(`/buy-package/choose-box/${selectedId}`);

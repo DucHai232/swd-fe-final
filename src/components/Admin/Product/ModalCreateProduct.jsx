@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import optionColors from "../../../data/optionColors.json";
 import optionOrigins from "../../../data/optionOrigins.json";
 import optionGenders from "../../../data/optionGender.json";
+import optionMaterials from "../../../data/optionMaterials.json";
+import optionTypes from "../../../data/optionTypes.json";
 import { getBox } from "../../../redux/actions/box.action";
 import { getThemes } from "../../../redux/actions/theme.action";
 import { useDispatch, useSelector } from "react-redux";
@@ -135,47 +137,70 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
             </p>
           )}
         </div>
-        <div>
-          <Input
-            placeholder="Chất liệu sản phẩm"
-            name="material"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.material}
-          />
-          {formik.errors.material && formik.touched.material && (
-            <p
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "calc(50% - 8px)",
+            }}
+          >
+            <label>Chất liệu</label>
+            <Select
+              name="material"
+              onChange={(value) => formik.setFieldValue("material", value)}
+              onBlur={formik.handleBlur}
+              value={formik.values.material}
               style={{
-                color: "red",
-                marginBottom: "15px",
-                marginTop: "-10px",
-                fontSize: "12px",
+                width: "100%",
               }}
-            >
-              {formik.errors.material}{" "}
-            </p>
-          )}
-        </div>
-        <div>
-          <Input
-            placeholder="Loại sản phẩm"
-            name="type"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.type}
-          />
-          {formik.errors.type && formik.touched.type && (
-            <p
+              options={optionMaterials}
+            />
+            {formik.errors.material && formik.touched.material && (
+              <p
+                style={{
+                  color: "red",
+                  marginBottom: "15px",
+                  marginTop: "0px",
+                  fontSize: "12px",
+                }}
+              >
+                {formik.errors.material}{" "}
+              </p>
+            )}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "calc(50% - 8px)",
+            }}
+          >
+            <label>Loại sản phẩm</label>
+            <Select
+              name="type"
+              onChange={(value) => formik.setFieldValue("type", value)}
+              onBlur={formik.handleBlur}
+              value={formik.values.type}
               style={{
-                color: "red",
-                marginBottom: "15px",
-                marginTop: "-10px",
-                fontSize: "12px",
+                width: "100%",
               }}
-            >
-              {formik.errors.type}{" "}
-            </p>
-          )}
+              options={optionTypes}
+            />
+            {formik.errors.type && formik.touched.type && (
+              <p
+                style={{
+                  color: "red",
+                  marginBottom: "15px",
+                  marginTop: "0px",
+                  fontSize: "12px",
+                }}
+              >
+                {formik.errors.type}{" "}
+              </p>
+            )}
+          </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between" }}>

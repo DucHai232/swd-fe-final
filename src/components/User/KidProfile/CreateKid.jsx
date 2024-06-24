@@ -10,7 +10,10 @@ import { createInfoProfileKid } from "../../../apis/kid.request";
 import { useDispatch } from "react-redux";
 import { updateProfileKid } from "../../../redux/actions/kid.action";
 import store from "../../../store/ReduxStore";
-
+import optionColors from "../../../data/optionColors.json";
+import optionMaterials from "../../../data/optionMaterials.json";
+import optionTypes from "../../../data/optionTypes.json";
+import optionOrigins from "../../../data/optionOrigins.json";
 export default function CreateKid({
   kidId,
   kid,
@@ -244,8 +247,9 @@ export default function CreateKid({
           >
             {/* vì nếu ko có dòng này thì value đầu tiên nó hiện ra sẽ ko lưu đc pink, nó ra "", mà khi chọn lại nó mới chịu */}
             {!hasSelectedColor && <option value="">Choose color</option>}
-            <option value="pink">Pink</option>
-            <option value="orange">Orange</option>
+            {optionColors.map((color) => (
+              <option value={color.value}>{color.label}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -281,8 +285,9 @@ export default function CreateKid({
             style={{ color: isDisable ? "#a8a8a8" : "#000000" }}
           >
             {!hasSelectedMaterial && <option value="">Choose material</option>}
-            <option value="wood">Wood</option>
-            <option value="plastic">Plastic</option>
+            {optionMaterials.map((material) => (
+              <option value={material.value}>{material.label}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -300,9 +305,9 @@ export default function CreateKid({
             style={{ color: isDisable ? "#a8a8a8" : "#000000" }}
           >
             {!hasSelectedType && <option value="">Choose type</option>}
-            <option value="lego">Lego</option>
-            <option value="puzzle">Puzzle</option>
-            <option value="doll">Doll</option>
+            {optionTypes.map((type) => (
+              <option value={type.value}>{type.label}</option>
+            ))}
           </select>
         </div>
 
@@ -318,13 +323,9 @@ export default function CreateKid({
             style={{ color: isDisable ? "#a8a8a8" : "#000000" }}
           >
             {!hasSelectedMadeIn && <option value="">Choose origin</option>}
-            <option value="Trung quốc">Trung quốc</option>
-            <option value="Hàn quốc">Hàn quốc</option>
-            <option value="Mỹ">Mỹ</option>
-            <option value="Đài loan">Đài loan</option>
-            <option value="Việt nam">Việt nam</option>
-            <option value="Thái lan">Thái lan</option>
-            <option value="Singapore">Singapore</option>
+            {optionOrigins.map((origin) => (
+              <option value={origin.value}>{origin.label}</option>
+            ))}
           </select>
         </div>
       </div>

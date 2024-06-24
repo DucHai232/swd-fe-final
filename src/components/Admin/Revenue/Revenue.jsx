@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Revenue.css";
 import { IoStatsChart } from "react-icons/io5";
 import { CiShoppingCart } from "react-icons/ci";
@@ -7,45 +7,56 @@ import { FaArrowUp } from "react-icons/fa";
 import { FaArrowDownLong } from "react-icons/fa6";
 import Chart from "./Chart";
 import { DatePicker } from "antd";
-const listData = [
-  {
-    number: "34.000.000 đ",
-    des: "Tổng tiền",
-    color: "color-blue",
-    status: "reduce",
-    growNumber: "2.65",
-    text: "So với tuần trước",
-    icon: <IoStatsChart />,
-  },
-  {
-    number: "150",
-    des: "Đơn hàng",
-    color: "color-green",
-    status: "reduce",
-    growNumber: "0.85",
-    text: "So với tuần trước",
-    icon: <CiShoppingCart />,
-  },
-  {
-    number: "40",
-    des: "Khách hàng mới",
-    color: "color-red",
-    status: "increase",
-    growNumber: "6.65",
-    text: "So với tuần trước",
-    icon: <FaUserFriends />,
-  },
-  {
-    number: "12.56%",
-    des: "Tăng trưởng",
-    color: "color-tomato",
-    status: "increase",
-    growNumber: "10.65",
-    text: "So với tuần trước",
-    icon: <IoStatsChart />,
-  },
-];
+import { revenueWeek } from "../../../apis/dashboard.request";
+
 const Revenue = () => {
+  const [dataRevenue, setDataRevenue] = useState({});
+  useEffect(() => {
+    const fetchRevenue = async () => {
+      const response = await revenueWeek();
+      setDataRevenue(response.data);
+    };
+    fetchRevenue();
+  }, []);
+
+  const listData = [
+    {
+      number: dataRevenue?.sumMoneyThisWeek,
+      des: "Tổng tiền",
+      color: "color-blue",
+      status: "reduce",
+      growNumber: "2.65",
+      text: "So với tuần trước",
+      icon: <IoStatsChart />,
+    },
+    {
+      number: dataRevenue?.countThisWeek,
+      des: "Đơn hàng",
+      color: "color-green",
+      status: "reduce",
+      growNumber: "0.85",
+      text: "So với tuần trước",
+      icon: <CiShoppingCart />,
+    },
+    {
+      number: "40",
+      des: "Khách hàng mới",
+      color: "color-red",
+      status: "increase",
+      growNumber: "6.65",
+      text: "So với tuần trước",
+      icon: <FaUserFriends />,
+    },
+    {
+      number: dataRevenue?.growthRate,
+      des: "Tăng trưởng",
+      color: "color-tomato",
+      status: "increase",
+      growNumber: "10.65",
+      text: "So với tuần trước",
+      icon: <IoStatsChart />,
+    },
+  ];
   return (
     <div className="revenue-container">
       <h1>Doanh thu</h1>
@@ -54,7 +65,7 @@ const Revenue = () => {
           <div className="card total-price">
             <div className="item-1">
               <div>
-                <p className="number">{item.number}</p>
+                <p className="number">{item.number?.toLocaleString()}</p>
                 <p className="des">Tổng tiền</p>
               </div>
               {/* <IoStatsChart className="icon color-blue" /> */}

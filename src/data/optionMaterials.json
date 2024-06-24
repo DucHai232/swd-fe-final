@@ -1,0 +1,34 @@
+[
+    {
+      "value": "Gỗ",
+      "label": "Wood"
+    },
+    {
+        "value": "Thủy tinh",
+        "label": "Glass"
+    },
+    {
+      "value": "Nhựa",
+      "label": "Plastic"
+    },
+    {
+      "value": "Nhôm",
+      "label": "Aluminium"
+    },
+    {
+      "value": "Đồng",
+      "label": "Copper"
+    },
+    {
+      "value": "Thép",
+      "label": "Steel"
+    },
+    {
+      "value": "Vải",
+      "label": "Cloth"
+    },
+    {
+        "value": "Cao su",
+        "label": "Rubber"
+      }
+  ]
