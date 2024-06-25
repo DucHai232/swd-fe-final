@@ -6,6 +6,7 @@ import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-do
 import UserProfile from '../../components/User/UserProfile/UserProfile'
 import KidProfile from '../../components/User/KidProfile/KidProfile'
 import Order from '../../components/User/Order/Order'
+import getUserLocalstorage from '../../utils/UserCurrent'
 
 const User = () => {
 
@@ -42,6 +43,8 @@ const User = () => {
     }
   }, [location, navigate])
 
+  const userCurrent = getUserLocalstorage();
+
   return (
     <div className="user-whole-container">
       <div className="user-container">
@@ -55,8 +58,8 @@ const User = () => {
         />
 
         <div className='user-right-container'>
-          <img src={blueHome} onClick={() => navigate("/")} />
-          <p className='welcome-user'>Hi, username</p>
+          <img src={blueHome} className='logo-home' onClick={() => navigate("/")} />
+          <p className='welcome-user'>Hi, {userCurrent?.username}</p>
 
           <div className="info">
             {/* vẫn gọi được component UserProfile, KidProfile nhưng không thể thay đổi đường dẫn */}

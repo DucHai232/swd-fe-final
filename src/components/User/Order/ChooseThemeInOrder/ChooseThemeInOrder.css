@@ -1,4 +1,4 @@
-.choose_theme-container{
+.choose_theme_in_order-container{
     padding-top: 5%;
     width: 100%;
     overflow-y: scroll;
@@ -8,9 +8,9 @@
     justify-content: space-evenly;
 }
 
-.choose_theme-container .choose_theme-item{
+.choose_theme_in_order-container .choose_theme_in_order-item{
     width: 25%;
-    height: 400px;
+    /* height: 400px; */
     margin-bottom: 5%;
     background-color: #F9F8F2;
     /* border: 8px solid #44D2FF; */
@@ -19,22 +19,22 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* align-content: flex-start; */
-    min-height: 400px;
+    align-content: flex-start;
+    min-height: 440px;
     height: fit-content;
 }
 
-.choose_theme-item img{
-    width: 270px;
-    height: 200px;
+.choose_theme_in_order-item img{
+    width: 220px;
+    height: 170px;
     margin-top: 3%;
 }
 
-.choose_theme-item .theme-item-title{
+.choose_theme_in_order-item .theme_in_order-item-title{
     width: 90%;
-    margin: 5% 0;
+    margin: 10% 0 3% 0;
     line-height: 30px;
-    height: 45px;
+    height: 60px;
     /* color: #44D2FF; */
     font-family: "Kavoon", serif;
     font-size: 20px;
@@ -42,24 +42,23 @@
     padding-left: 8%;
 }
 
-.choose_theme-item .theme-item-content{
+.choose_theme_in_order-item .theme_in_order-item-content{
     width: 90%;
-    height: 50px;
-    margin: 3% 0 5% 0;
-    padding: 0 10%;
-    text-align: left;
+    margin: 3% 5% 5%;
     line-height: 30px;
+    height: 80px;
     color: #828282;
     font-family: "Josefin Sans", sans-serif;
     font-size: 18px;
+    text-align: left;
+    padding-left: 8%;
 }
 
-.choose_theme-item .theme-item-btn{
+.choose_theme_in_order-item .theme_in_order-item-btn{
     line-height: 60px;
-    margin-bottom: 10px;
 }
 
-.choose_theme-item .theme-item-btn button{
+.choose_theme_in_order-item .theme_in_order-item-btn button{
     /* background-color: #44D2FF; */
     color: white;
     font-family: "Josefin Sans", sans-serif;
@@ -70,9 +69,9 @@
     border-radius: 10px;
     cursor: pointer;
 }
-.choose_theme-item .theme-item-btn button:hover{
+.choose_theme_in_order-item .theme_in_order-item-btn button:hover{
     background-color: #03b1e6 !important;
 }
-.choose_theme-item .theme-item-btn button.chosen:hover{
+.choose_theme_in_order-item .theme_in_order-item-btn button.chosen:hover{
     background-color: #bb58fd !important;
 }

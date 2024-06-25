@@ -174,6 +174,7 @@ const Order = () => {
                   fontSize: "18px",
                   display: "flex",
                   alignItems: "center",
+                  fontFamily: "Josefin Sans, sans-serif",
                 }}
                 items={[
                   {

@@ -32,8 +32,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    height: calc(100vh - 107px);
+    /* overflow-y: scroll;
+    height: calc(100vh - 107px); */
 }
 
 .list-btn .btn {

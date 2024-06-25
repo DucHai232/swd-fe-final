@@ -1,0 +1,21 @@
+.choose_box-content .choose_box-btn{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-bottom: 25px;
+}
+
+.choose_box-content .choose_box-btn button{
+    background-color: #4accf3 !important;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+}
+.choose_box-content .choose_box-btn button:hover{
+    background-color: #11b4e6 !important;
+    color: white !important;
+    border: none;
+}

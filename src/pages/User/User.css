@@ -19,13 +19,14 @@
     margin-left: calc(20% - 0.2%); /*nếu position: fixed cho user_menu-container thì mới xài dòng này*/
     /* vì user_menu-container đang margin-left: -0.2% nên ở đây viết v để đừng bị dư 1 khoảng trắng nhỏ */
     width: 80%;
-    height: 100vh;
+    min-height: 100vh;
+    height: fit-content;
     position: relative;
     background-color: rgb(249, 245, 245);
     /* margin-top: 10px; */
 }
 
-.user-right-container img{
+.user-right-container .logo-home{
     position: absolute;
     top: 1%;
     left: 1%;

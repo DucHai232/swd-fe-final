@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./Confirm.css";
+import "./ConfirmInOrder.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getKidProfile } from "../../../../redux/actions/kid.action";
 import { getDataPackage } from "../../../../redux/actions/package.action";
 import { getThemes } from "../../../../redux/actions/theme.action";
 import { useParams } from "react-router-dom";
 
-const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
+const ConfirmInOrder = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -27,11 +27,11 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const [data, setData] = useState({
     kidId: kid?.id,
     totalPrice: packageChoose?.price,
-    nameOfAdult: kid.adult?.fullName,
+    nameOfAdult: kid?.adult.fullName,
     nameOfKid: kid?.fullName,
-    phone: kid.adult?.phone,
-    email: kid.adult?.email,
-    address: kid.adult?.address,
+    phone: kid?.adult.phone,
+    email: kid?.adult.email,
+    address: kid?.adult.address,
   });
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -101,4 +101,4 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   );
 };
 
-export default Confirm;
+export default ConfirmInOrder;
