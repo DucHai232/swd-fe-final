@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { getBox } from "../../../redux/actions/box.action";
 import CreateBox from "./CreateBox";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   {
@@ -22,6 +23,9 @@ const columns = [
     title: "Giá trung bình",
     dataIndex: "priceAvarage",
     key: "priceAvarage",
+    render: (priceAvarage) => (
+      <span>{Number(priceAvarage).toLocaleString("vi-VN")} VNĐ</span>
+    ),
   },
   {
     title: "Số sản phẩm trong box",
@@ -63,6 +67,7 @@ const ManageBox = () => {
   const dispatch = useDispatch();
   const [isModalCreateBox, setIsModalCreateBox] = useState(false);
   const [callback, setCallback] = useState(false);
+  const navigate = useNavigate();
   const showModalCreateBox = () => {
     setIsModalCreateBox(true);
   };
@@ -90,7 +95,10 @@ const ManageBox = () => {
             // onChange={(e) => setSearch(e.target.value)}
           />
 
-          <button className="create" onClick={showModalCreateBox}>
+          <button
+            className="create"
+            onClick={() => navigate("/admin/create-box")}
+          >
             <IoAddCircleOutline />
             <span>Tạo box</span>
           </button>

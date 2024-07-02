@@ -19,7 +19,7 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
   const [previewImages, setPreviewImages] = useState([]);
   const formik = useFormik({
     initialValues: {
-      boxId: "",
+      productCode: "",
       themeId: "",
       name: "",
       images: [],
@@ -33,7 +33,7 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
       origin: "",
     },
     validationSchema: Yup.object({
-      boxId: Yup.string().required("Vui lòng chọn box"),
+      productCode: Yup.string().required("Vui lòng nhập mã sản phẩm"),
       themeId: Yup.string().required("Vui lòng chọn theme"),
       name: Yup.string().required("Vui lòng nhập tên sản phẩm"),
       description: Yup.string().required("Vui lòng miêu tả sản phẩm"),
@@ -346,27 +346,24 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
               width: "calc(25% - 8px)",
             }}
           >
-            <label>Box</label>
-            <Select
-              name="boxId"
-              onChange={(value) => formik.setFieldValue("boxId", value)}
+            <label>Mã sản phẩm</label>
+            <Input
+              placeholder="Mã sản phẩm"
+              name="productCode"
+              onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.boxId}
-              style={{
-                width: "100%",
-              }}
-              options={boxOptions}
+              value={formik.values.productCode}
             />
-            {formik.errors.boxId && formik.touched.boxId && (
+            {formik.errors.productCode && formik.touched.productCode && (
               <p
                 style={{
                   color: "red",
                   marginBottom: "15px",
-                  marginTop: "0px",
+                  marginTop: "-10px",
                   fontSize: "12px",
                 }}
               >
-                {formik.errors.boxId}{" "}
+                {formik.errors.productCode}{" "}
               </p>
             )}
           </div>

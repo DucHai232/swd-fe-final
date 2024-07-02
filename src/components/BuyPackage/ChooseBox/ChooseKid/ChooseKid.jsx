@@ -186,6 +186,7 @@ const ChooseKid = ({
     dispatch(getKidProfile());
   }, [selectedRowKey, isRowSelected, setNextEnabled]);
   const kids = useSelector((state) => state.kidReducer?.dataKids);
+
   return (
     <div className="choose_kid-container">
       <Table

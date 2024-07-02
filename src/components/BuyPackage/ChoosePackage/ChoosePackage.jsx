@@ -17,10 +17,10 @@ const ChoosePackage = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
-    dispatch(getDataPackage("", 1));
+    dispatch(getDataPackage("", 1)); //muon truyen hanh dong thì dùng dispatch
     dispatch(getKidProfile());
   }, []);
-  const responsePackages = useSelector((state) => state.packageReducer);
+  const responsePackages = useSelector((state) => state.packageReducer); //hanh dong mot redux store
   const kidOfUserCurrent = useSelector((state) => state.kidReducer?.dataKids);
   const handleClick = (id) => {
     setSelectedId(id);

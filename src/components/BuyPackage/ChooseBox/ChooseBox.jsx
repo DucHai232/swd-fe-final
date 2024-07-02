@@ -17,7 +17,6 @@ import {
   saveLocalstorage,
 } from "../../../utils/LocalstorageMySteryBox";
 import { createPackageInPeriod } from "../../../apis/packageInPeriods.request";
-import { getCurrentPeriod } from "../../../apis/period.request";
 
 const ChooseBox = () => {
   const { id } = useParams();
@@ -26,13 +25,16 @@ const ChooseBox = () => {
   const [isNextEnabled, setNextEnabled] = useState(false);
   const [selectedThemeId, setSelectedThemeId] = useState(null);
   const [selectedRowKey, setSelectedRowKey] = useState(null);
-  const [currentPeriod, setCurrentPeriod] = useState();
   const [paginationState, setPaginationState] = useState({
     current: 1,
     pageSize: 5,
   });
   const [dataConfirm, setDataConfirm] = useState({});
   const [selectedBoxId, setSelectedBoxId] = useState(null);
+  const [dataGetBox, setDataGetBox] = useState({
+    themeId: "",
+    yob: "",
+  });
   const steps = [
     {
       title: "Choose theme",
@@ -40,7 +42,7 @@ const ChooseBox = () => {
         <ChooseTheme
           setNextEnabled={setNextEnabled}
           selectedId={selectedThemeId}
-          setSelectedId={setSelectedThemeId} // Truyền hàm để cập nhật ID của theme đã chọn
+          setSelectedId={setSelectedThemeId}
         />
       ),
     },
@@ -72,26 +74,25 @@ const ChooseBox = () => {
         <ChooseBoxStep
           selectedId={selectedBoxId}
           setSelectedId={setSelectedBoxId}
+          dataGetBox={dataGetBox}
         />
       ),
     },
   ];
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getCurrentPeriod();
-      setCurrentPeriod(response?.data.periodCurrent);
-    };
-    fetchData();
-  }, []);
-
+  const kid = useSelector((state) => state.kidReducer?.dataKids).filter(
+    (el) => el.id === selectedRowKey
+  )[0];
   const next = async () => {
     setCurrent(current + 1);
     window.scrollTo(0, 350);
     if (current + 1 === 2) {
       await updateInfoProfileKid(selectedRowKey, { themeId: selectedThemeId });
+      setDataGetBox({
+        themeId: selectedThemeId,
+        yob: kid?.yob,
+      });
     }
     if (current + 1 === 3) {
       saveLocalstorage("data-order", dataConfirm);
@@ -119,9 +120,9 @@ const ChooseBox = () => {
     const confirmUserOrder = loadFromLocalstorage("data-order");
     await dispatch(orderPackage(id, confirmUserOrder));
     const confirmOrderFromServer = store.getState().packageOrderReducer?.order;
+    console.log(confirmOrderFromServer);
     if (confirmOrderFromServer && confirmOrderFromServer.success) {
       await createPackageInPeriod({
-        periodId: currentPeriod?.id,
         boxId: selectedBoxId,
         packageOrderId: confirmOrderFromServer?.order?.id,
       });

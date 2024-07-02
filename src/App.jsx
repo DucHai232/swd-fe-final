@@ -21,6 +21,7 @@ import ManageBox from "./components/Admin/Box/ManageBox";
 import { useSelector } from "react-redux";
 import ManageOrder from "./components/Admin/Status/ManageOrder";
 import getUserLocalstorage from "./utils/UserCurrent";
+import CreateStepBox from "./components/Admin/Box/CreateStepBox/CreateStepBox";
 
 function App() {
   const user =
@@ -44,6 +45,7 @@ function App() {
           <Route path="manage-package" element={<ManagePackage />} />
           <Route path="manage-box-history" element={<HistoryBox />} />
           <Route path="manage-box" element={<ManageBox />} />
+          <Route path="create-box" element={<CreateStepBox />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

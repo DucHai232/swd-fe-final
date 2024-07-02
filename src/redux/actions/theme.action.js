@@ -33,6 +33,7 @@ export const deleteTheme = (themeId, status) => async (dispatch) => {
   dispatch({ type: actionsType.THEME_START });
   try {
     const response = await ThemeApi.deleteTheme(themeId, status);
+    dispatch(getThemes("", 1));
     dispatch({
       type: actionsType.THEME_DELETE_SUCCESS,
       payload: response.data,

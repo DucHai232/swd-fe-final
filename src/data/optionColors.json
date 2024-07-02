@@ -1,26 +1,26 @@
 [
     {
-      "value": "Màu đỏ",
-      "label": "Màu đỏ"
+      "value": "Red",
+      "label": "Red"
     },
     {
-      "value": "Màu cam",
-      "label": "Màu cam"
+      "value": "Orange",
+      "label": "Orange"
     },
     {
-      "value": "Màu đen",
-      "label": "Màu đen"
+      "value": "Black",
+      "label": "Black"
     },
     {
-      "value": "Màu xanh lá",
-      "label": "Màu xanh lá"
+      "value": "Green",
+      "label": "Green"
     },
     {
-      "value": "Màu xanh dương",
-      "label": "Màu xanh dương"
+      "value": "Blue",
+      "label": "Blue"
     },
     {
-      "value": "Màu vàng",
-      "label": "Màu vàng"
+      "value": "Yellow",
+      "label": "Yellow"
     }
   ]

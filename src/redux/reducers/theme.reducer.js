@@ -18,7 +18,7 @@ const themeReducer = (
         res: payload,
       };
     case actionsType.THEME_DELETE_SUCCESS:
-      const filterThemes = state.themes.filter((item) => item.status == true);
+      const filterThemes = state.themes.filter((item) => item.status);
       return { ...state, themes: filterThemes, loading: false, res: payload };
     case actionsType.THEME_FAIL:
       return { ...state, loading: false, error: payload };

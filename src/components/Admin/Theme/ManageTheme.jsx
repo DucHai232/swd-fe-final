@@ -74,7 +74,6 @@ const ManageTheme = () => {
   useEffect(() => {
     dispatch(getThemes(search, 1));
   }, [callback, search]);
-
   const showModalCreate = () => {
     setIsOpenCreate(true);
   };

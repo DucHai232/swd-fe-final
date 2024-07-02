@@ -24,24 +24,13 @@ const ManagePackage = () => {
       title: "Giá thành",
       dataIndex: "price",
       key: "price",
+      render: (price) => <span>{price.toLocaleString("vi-VN")} VNĐ</span>,
     },
     {
       title: "Số lần gửi quà",
       dataIndex: "numberOfSend",
       key: "numberOfSend",
     },
-
-    // {
-    //   title: "Hình ảnh",
-    //   dataIndex: "image",
-    //   key: "image",
-    //   render: (image) => (
-    //     <img
-    //       src={image}
-    //       style={{ width: "100px", height: "100px", objectFit: "cover" }}
-    //     />
-    //   ),
-    // },
 
     {
       title: "Action",
@@ -98,9 +87,6 @@ const ManagePackage = () => {
   const handleCancelCreate = () => {
     setIsOpenCreate(false);
   };
-  const handleCreatePackage = () => {
-    alert("ss");
-  };
 
   useEffect(() => {
     dispatch(getDataPackage(search, 1));
@@ -143,7 +129,8 @@ const ManagePackage = () => {
       <ModalCreatePackage
         isModalOpen={isOpenCreate}
         handleCancel={handleCancelCreate}
-        handleOk={handleCreatePackage}
+        setCallback={setCallback}
+        setIsOpenCreate={setIsOpenCreate}
       />
     </>
   );

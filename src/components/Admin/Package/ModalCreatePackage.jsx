@@ -1,16 +1,19 @@
-import { Input, InputNumber, Modal } from "antd";
+import { Input, InputNumber, Modal, Select, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import React, { useState } from "react";
-import axios from "axios";
 import { createPackage } from "../../../apis/package.request";
-
-const ModalCreatePackage = ({ isModalOpen, handleCancel, handleOk }) => {
-  const [previewUrl, setPreviewUrl] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+import optionAges from "../../../data/optionAges.json";
+const ModalCreatePackage = ({
+  isModalOpen,
+  handleCancel,
+  setIsOpenCreate,
+  setCallback,
+}) => {
   const formik = useFormik({
     initialValues: {
+      age: "",
       name: "",
       description: "",
       price: "",
@@ -18,6 +21,7 @@ const ModalCreatePackage = ({ isModalOpen, handleCancel, handleOk }) => {
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Vui lòng nhập tên package"),
+      age: Yup.string().required("Vui lòng chọn độ tuổi phù hợp"),
       description: Yup.string().required("Vui lòng nhập miêu tả package"),
       price: Yup.number().required("Vui lòng nhập giá thành package"),
       numberOfSend: Yup.number().required(
@@ -25,37 +29,19 @@ const ModalCreatePackage = ({ isModalOpen, handleCancel, handleOk }) => {
       ),
     }),
     onSubmit: async (values) => {
-      // if (!selectedFile) {
-      //   message.warning("Vui lòng chọn ảnh");
-      //   return;
-      // }
-      // const imageData = new FormData();
-      // imageData.append("img", selectedFile);
       try {
-        // const response = await axios.post(
-        //   "https://mysterybox-swd-be.onrender.com/upload-image",
-        //   imageData,
-        //   {
-        //     headers: {
-        //       "Content-Type": "multipart/form-data",
-        //     },
-        //   }
-        // );
-        // const imageUrls = response.data.path;
-        // const updatedValues = {
-        //   ...values,
-        //   image: imageUrls,
-        // };
-        await createPackage(values);
-        const responseCreateTheme = store.getState().themeReducer.res;
+        const response = await createPackage(values);
+        if (response.data.success) {
+          message.success(response.data.message);
+          setIsOpenCreate(false);
+          setCallback((prev) => !prev);
+        } else {
+          message.success(response.data.message);
+        }
       } catch (error) {}
     },
   });
-  // const handleImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setPreviewUrl(URL.createObjectURL(file));
-  //   setSelectedFile(file);
-  // };
+
   return (
     <>
       <Modal
@@ -66,26 +52,76 @@ const ModalCreatePackage = ({ isModalOpen, handleCancel, handleOk }) => {
         okText="Tạo package"
         cancelText="Hủy"
       >
-        <Input
-          placeholder="Tên package"
-          name="name"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-          style={{ marginBottom: "15px" }}
-        />
-        {formik.errors.name && formik.touched.name && (
-          <p
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "12px 0",
+          }}
+        >
+          <div
             style={{
-              color: "red",
-              marginBottom: "15px",
-              marginTop: "-12px",
-              fontSize: "12px",
+              display: "flex",
+              flexDirection: "column",
+              width: "calc(50% - 8px)",
             }}
           >
-            {formik.errors.name}{" "}
-          </p>
-        )}
+            <Input
+              placeholder="Tên package"
+              name="name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+              style={{ marginBottom: "15px" }}
+            />
+            {formik.errors.name && formik.touched.name && (
+              <p
+                style={{
+                  color: "red",
+                  marginBottom: "15px",
+                  marginTop: "-12px",
+                  fontSize: "12px",
+                }}
+              >
+                {formik.errors.name}{" "}
+              </p>
+            )}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "calc(50% - 8px)",
+            }}
+          >
+            <Select
+              name="age"
+              onChange={(value) => formik.setFieldValue("age", value)}
+              onBlur={formik.handleBlur}
+              value={formik.values.age}
+              placeholder="Chọn độ tuổi"
+              style={{
+                marginBottom: "4px",
+                width: "100%",
+              }}
+              options={optionAges}
+            />
+            {formik.errors.age && formik.touched.age && (
+              <p
+                style={{
+                  color: "red",
+                  marginBottom: "15px",
+                  marginTop: "0px",
+                  fontSize: "12px",
+                }}
+              >
+                {formik.errors.age}{" "}
+              </p>
+            )}
+          </div>
+        </div>
+
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div
             style={{
