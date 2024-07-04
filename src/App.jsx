@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import ManageOrder from "./components/Admin/Status/ManageOrder";
 import getUserLocalstorage from "./utils/UserCurrent";
 import CreateStepBox from "./components/Admin/Box/CreateStepBox/CreateStepBox";
+import Product from './components/Product/Product';
 
 function App() {
   const user =
@@ -61,6 +62,9 @@ function App() {
           <Route path="choose-package" element={<ChoosePackage />} />
           <Route path="choose-box/:id" element={<ChooseBox />} />
         </Route>
+
+        <Route path="/product" element={<Product/>}/>
+
       </Routes>
     </>
   );

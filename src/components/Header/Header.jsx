@@ -64,7 +64,7 @@ const Header = () => {
             <li onClick={handleClick}>Home</li>
             <li>About Us</li>
             <li onClick={() => navigate("/buy-package")}>Buy Package</li>
-            <li>Product</li>
+            <li onClick={() => navigate('/product')}>Product</li>
             {user ? (
               <Avatar
                 style={{ cursor: "pointer" }}
