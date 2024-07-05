@@ -31,7 +31,7 @@ const ManageOrder = () => {
   const handleConfirmOrder = async (orderId, packageOrderId) => {
     const body = {
       status: "openingDate",
-      updateStatus: "DELIVERY",
+      updateStatus: "PACK",
     };
     await updateStatusPackageInPeriod(orderId, body);
     await addPackInPeriod(packageOrderId);
