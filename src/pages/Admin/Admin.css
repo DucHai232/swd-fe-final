@@ -1,0 +1,14 @@
+.header-admin {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-admin img {
+    width: 150px;
+}
+
+.ant-dropdown-menu-title-content{
+    font-size: 20px !important;
+    font-family: "Josefin Sans", sans-serif;
+}
