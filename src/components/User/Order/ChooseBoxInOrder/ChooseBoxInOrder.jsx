@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./ChooseBoxInOrder.css";
+import { getBoxCondition } from "../../../../apis/box.request";
 
-import box from "/assets/MysteryBox.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { getBox } from "../../../../redux/actions/box.action";
-
-const ChooseBoxInOrder = ({ selectedId, setSelectedId }) => {
-  const dispatch = useDispatch();
+const ChooseBoxInOrder = ({ condition, selectedId, setSelectedId }) => {
+  const [boxs, setBoxs] = useState([]);
 
   const handleButtonClick = (id) => {
     setSelectedId(id);
   };
   useEffect(() => {
-    dispatch(getBox());
+    const fetchDataBoxs = async () => {
+      const response = await getBoxCondition(condition);
+      setBoxs(response.data.mysteryBoxs);
+    };
+    fetchDataBoxs();
   }, []);
-  const boxs = useSelector((state) => state.boxReducer?.boxs);
+
   return (
     <div className="choose_box_step-container">
       {boxs.map((item) => (

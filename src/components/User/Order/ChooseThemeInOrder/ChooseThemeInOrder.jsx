@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from "react";
 import "./ChooseThemeInOrder.css";
-
-import frozen from "/assets/frozen.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { getThemes } from "../../../../redux/actions/theme.action";
+import { loadFromLocalstorage } from "../../../../utils/LocalstorageMySteryBox";
+import { getKidProfile } from "../../../../apis/kid.request";
 
-const ChooseThemeInOrder = ({ setNextEnabled, selectedId, setSelectedId }) => {
+const ChooseThemeInOrder = ({
+  setNextEnabled,
+  selectedId,
+  setSelectedId,
+  setCondition,
+}) => {
   const dispatch = useDispatch();
-
+  const [kid, setKid] = useState({});
   useEffect(() => {
     if (selectedId !== null) {
       setNextEnabled(true);
     }
     dispatch(getThemes("", 1));
+
+    const fetchDataKid = async () => {
+      const responseLocal = loadFromLocalstorage("data-confirm");
+      const response = await getKidProfile();
+      const rawData = response.data.kidProfiles.filter(
+        (el) => el.id == responseLocal.kidId
+      )[0];
+      setKid(rawData);
+    };
+    fetchDataKid();
+    setCondition({
+      themeId: selectedId,
+      yob: kid?.yob,
+    });
   }, [selectedId, setNextEnabled]);
 
   const handleButtonClick = (id) => {

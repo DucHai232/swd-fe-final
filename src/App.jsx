@@ -22,7 +22,8 @@ import { useSelector } from "react-redux";
 import ManageOrder from "./components/Admin/Status/ManageOrder";
 import getUserLocalstorage from "./utils/UserCurrent";
 import CreateStepBox from "./components/Admin/Box/CreateStepBox/CreateStepBox";
-import Product from './components/Product/Product';
+import Product from "./components/Product/Product";
+import ManageBoxPeriod from "./components/Admin/Order/ManageBoxPeriod";
 
 function App() {
   const user =
@@ -41,8 +42,12 @@ function App() {
         >
           <Route path="manage-theme" element={<ManageTheme />} />
           <Route path="manage-product" element={<ManageProduct />} />
-          <Route path="manage-cart/revenue" element={<Revenue />} />
-          <Route path="manage-cart/status" element={<ManageOrder />} />
+          <Route path="orders/revenue" element={<Revenue />} />
+          <Route path="orders/confirm-box-order" element={<ManageOrder />} />
+          <Route
+            path="orders/manage-box-period"
+            element={<ManageBoxPeriod />}
+          />
           <Route path="manage-package" element={<ManagePackage />} />
           <Route path="manage-box-history" element={<HistoryBox />} />
           <Route path="manage-box" element={<ManageBox />} />
@@ -63,8 +68,7 @@ function App() {
           <Route path="choose-box/:id" element={<ChooseBox />} />
         </Route>
 
-        <Route path="/product" element={<Product/>}/>
-
+        <Route path="/product" element={<Product />} />
       </Routes>
     </>
   );

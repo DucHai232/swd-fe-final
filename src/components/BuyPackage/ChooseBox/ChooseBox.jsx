@@ -120,11 +120,13 @@ const ChooseBox = () => {
     const confirmUserOrder = loadFromLocalstorage("data-order");
     await dispatch(orderPackage(id, confirmUserOrder));
     const confirmOrderFromServer = store.getState().packageOrderReducer?.order;
-    console.log(confirmOrderFromServer);
     if (confirmOrderFromServer && confirmOrderFromServer.success) {
       await createPackageInPeriod({
         boxId: selectedBoxId,
         packageOrderId: confirmOrderFromServer?.order?.id,
+        address: confirmUserOrder?.address,
+        phone: confirmUserOrder?.phone,
+        nameOfAdult: confirmUserOrder?.nameOfAdult,
       });
       message.success(confirmOrderFromServer.messsage);
       removeLocalstorage("data-order");
