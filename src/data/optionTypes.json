@@ -1,6 +1,6 @@
 [
     {
-      "value": "Đồ chơi",
+      "value": "Toys",
       "label": "Toys"
     },
     {
@@ -8,23 +8,23 @@
         "label": "Robot "
     },
     {
-      "value": "Búp bê",
+      "value": "Doll",
       "label": "Doll "
     },
     {
-      "value": "Trống",
+      "value": "Drum",
       "label": "Drum "
     },
     {
-      "value": "Xe hơi",
+      "value": "Car",
       "label": "Car"
     },
     {
-      "value": "Bóng",
+      "value": "Balloon",
       "label": "Balloon"
     },
     {
-      "value": "Tàu",
+      "value": "Train",
       "label": "Train"
     }
   ]

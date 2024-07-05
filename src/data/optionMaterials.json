@@ -1,34 +1,34 @@
 [
     {
-      "value": "Gỗ",
+      "value": "Wood",
       "label": "Wood"
     },
     {
-        "value": "Thủy tinh",
+        "value": "Glass",
         "label": "Glass"
     },
     {
-      "value": "Nhựa",
+      "value": "Plastic",
       "label": "Plastic"
     },
     {
-      "value": "Nhôm",
+      "value": "Aluminium",
       "label": "Aluminium"
     },
     {
-      "value": "Đồng",
+      "value": "Copper",
       "label": "Copper"
     },
     {
-      "value": "Thép",
+      "value": "Steel",
       "label": "Steel"
     },
     {
-      "value": "Vải",
+      "value": "Cloth",
       "label": "Cloth"
     },
     {
-        "value": "Cao su",
+        "value": "Rubber",
         "label": "Rubber"
       }
   ]

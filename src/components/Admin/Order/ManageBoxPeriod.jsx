@@ -13,6 +13,7 @@ const ManageBoxPeriod = () => {
   const [packageInPeriodData, setPackageInPeriodData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [packageInPeriod, setPackageInPeriod] = useState({});
+  const [select, setSelect] = useState(null);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -31,11 +32,16 @@ const ManageBoxPeriod = () => {
 
   useEffect(() => {
     const fetchStatusBox = async () => {
-      const response = await getPackageInPeriodStatus();
+      const response = await getPackageInPeriodStatus("");
       setPackageInPeriodData(response.data.packageInPeriods);
     };
     fetchStatusBox();
   }, [callback]);
+
+  const handleFilter = async () => {
+    const response = await getPackageInPeriodStatus(select);
+    setPackageInPeriodData(response.data.packageInPeriods);
+  };
   const columns = [
     {
       title: "Tên Box",
@@ -63,27 +69,31 @@ const ManageBoxPeriod = () => {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
-      render: (status) => (
+      render: (status, record) => (
         <div>
-          <Tag
-            color={
-              status === "PACK"
-                ? "magenta"
+          {record.confirmDate ? (
+            <Tag color="green">Hoàn thành</Tag>
+          ) : (
+            <Tag
+              color={
+                status === "PACK"
+                  ? "magenta"
+                  : status === "DELIVERY"
+                  ? "orange"
+                  : status === "CONFIRM"
+                  ? "cyan"
+                  : ""
+              }
+            >
+              {status === "PACK"
+                ? "Gói hàng"
                 : status === "DELIVERY"
-                ? "orange"
+                ? "Vận chuyển"
                 : status === "CONFIRM"
-                ? "cyan"
-                : ""
-            }
-          >
-            {status === "PACK"
-              ? "Gói hàng"
-              : status === "DELIVERY"
-              ? "Vận chuyển"
-              : status === "CONFIRM"
-              ? "Xác nhận"
-              : ""}
-          </Tag>
+                ? "Xác nhận"
+                : ""}
+            </Tag>
+          )}
         </div>
       ),
     },
@@ -93,11 +103,12 @@ const ManageBoxPeriod = () => {
       key: "action",
       render: (_, record) => (
         <Button onClick={() => getPackageInPeriod(record.id)}>
-          Cập nhật đơn hàng
+          {record.confirmDate ? "Xem" : "Cập nhật đơn hàng"}
         </Button>
       ),
     },
   ];
+
   return (
     <>
       <div>
@@ -109,6 +120,31 @@ const ManageBoxPeriod = () => {
             className="input-search"
             // onChange={(e) => setSearch(e.target.value)}
           />
+          <Select
+            showSearch
+            placeholder="Choose status"
+            size="large"
+            allowClear
+            value={select}
+            style={{
+              width: "18%",
+              marginLeft: "12px",
+              height: "35px",
+            }}
+            onChange={(value) => setSelect(value)}
+            options={[
+              { value: "DELIVERY", label: "Đơn hàng vận chuyển" },
+              { value: "PACK", label: "Đơn hàng đóng gói" },
+              { value: "CONFIRM", label: "Đơn hàng xác nhận" },
+              { value: "", label: "Tất cả" },
+            ]}
+          />
+          <Button
+            style={{ marginLeft: "12px", height: "35px" }}
+            onClick={() => handleFilter()}
+          >
+            Lọc
+          </Button>
         </div>
         <div className="table">
           <Table

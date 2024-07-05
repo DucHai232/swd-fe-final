@@ -3,7 +3,7 @@ import "./Order.css";
 import { getPackageOrderByUserId } from "../../../apis/package-order.request";
 import { formatDateSplitT } from "../../../utils/FormatDate";
 import { getPackage } from "../../../apis/package.request";
-import { Breadcrumb } from "antd";
+import { Breadcrumb, message } from "antd";
 import { FaEye } from "react-icons/fa";
 import ChooseProduct from "./ChooseProduct";
 import { getDataPackagePeriodOfPackageOrder } from "../../../apis/packageInPeriods.request";
@@ -90,6 +90,7 @@ const Order = () => {
     setKeyMenu(null);
     setShowDetail(false);
     setCurrentDetailIndex({});
+    setOpenChooseProduct(false);
   };
 
   const renderProduct = (data) => (
@@ -132,22 +133,15 @@ const Order = () => {
     </ul>
   );
 
-  // const renderPackage = (data) => (
-  //   <ul className="list-data">
-  //     <li>
-  //       <strong>Tên package: </strong>
-  //       {data?.name}
-  //     </li>
-  //     <li>
-  //       <strong>Miêu tả: </strong>
-  //       {data?.description}
-  //     </li>
-  //     <li>
-  //       <strong>Giá thành: </strong>
-  //       {Number(data?.price).toLocaleString()} VND
-  //     </li>
-  //   </ul>
-  // );
+  const handleOpenNextBox = () => {
+    const latestPackagePeriod =
+      dataPackagePeriods[dataPackagePeriods.length - 1];
+    if (latestPackagePeriod && latestPackagePeriod.dates.confirmDate) {
+      setOpenChooseProduct(true);
+    } else {
+      message.warning("Gói hàng nhỏ chưa giao xong vui lòng chờ đợi");
+    }
+  };
 
   const renderStatus = (data) => (
     <ul className="list-data">
@@ -295,7 +289,8 @@ const Order = () => {
             {getPackageNumberOfSend(packageId) > dataPackagePeriods.length && (
               <button
                 className="btn-product-next"
-                onClick={() => setOpenChooseProduct(true)}
+                // onClick={() => setOpenChooseProduct(true)}
+                onClick={() => handleOpenNextBox()}
               >
                 Chọn sản phẩm tiếp theo
               </button>

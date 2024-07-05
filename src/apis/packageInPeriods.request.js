@@ -27,8 +27,8 @@ export const getPackageInPeriodNotConfirm = () => {
   return API.get("/get-box-not-confirm");
 };
 
-export const getPackageInPeriodStatus = () => {
-  return API.get("/get-status-box");
+export const getPackageInPeriodStatus = (status) => {
+  return API.get(`/get-status-box?status=${status}`);
 };
 
 export const getDataPackagePeriodOfPackageOrder = (packageOrderId) => {
