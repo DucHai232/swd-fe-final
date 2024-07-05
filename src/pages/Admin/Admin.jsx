@@ -60,18 +60,23 @@ const items = [
   },
   {
     key: "cart",
-    label: "Quản lý đơn hàng",
+    label: "Orders",
     icon: <AppstoreOutlined />,
     children: [
       {
         key: "1",
         label: "Doanh thu",
-        route: "manage-cart/revenue",
+        route: "orders/revenue",
       },
       {
         key: "2",
-        label: "Trạng thái đơn hàng",
-        route: "manage-cart/status",
+        label: "Xác nhận gói hàng",
+        route: "orders/confirm-box-order",
+      },
+      {
+        key: "3",
+        label: "Quản lý đơn hàng",
+        route: "orders/manage-box-period",
       },
     ],
   },

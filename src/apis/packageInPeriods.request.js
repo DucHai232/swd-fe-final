@@ -23,10 +23,18 @@ export const getAllPackageInPeriods = () => {
   });
 };
 
-export const chooseProductInPeriods = (productId, packageOrderId) => {
-  return API.get(`/add-product-packageinperiod/${productId}/${packageOrderId}`);
+export const getPackageInPeriodNotConfirm = () => {
+  return API.get("/get-box-not-confirm");
+};
+
+export const getPackageInPeriodStatus = () => {
+  return API.get("/get-status-box");
 };
 
 export const getDataPackagePeriodOfPackageOrder = (packageOrderId) => {
   return API.get(`/get-packageinperiod-of-packageorder/${packageOrderId}`);
+};
+
+export const updateStatusPackageInPeriod = (packageInPeriodId, body) => {
+  return API.patch(`/update-status-packageinperiod/${packageInPeriodId}`, body);
 };

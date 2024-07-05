@@ -1,3 +1,37 @@
+header{
+    font-family: "Josefin Sans", sans-serif;
+    background-color: var(--color-btn-login);
+    padding: 12px 0;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.general-information{
+    font-family: "Josefin Sans", sans-serif;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+}
+
+.general-information .card{
+    border-radius: 4px;
+}
+
+.general-information .panel-left{
+    flex: 6;
+    background-color: var(--color-login);
+}
+.general-information .panel-right{
+    flex: 6;
+    background-color: var(--color-register);
+}
+
 .order-container{
     margin:  0 5% 5%;
     height: 80%;
@@ -98,6 +132,7 @@
 }
 
 .list-product .product {
+    margin-bottom: 12px;
     display: flex;
     font-family: "Josefin Sans", sans-serif;
     background-color: white;

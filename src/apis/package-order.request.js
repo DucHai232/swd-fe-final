@@ -25,10 +25,3 @@ export const getAllOrder = () => {
 export const addPackInPeriod = (packageOrderId) => {
   return API.get(`/push-product-order/${packageOrderId}`);
 };
-
-// export const getPackageOrderByIdPk = (packageOrderId) => {
-//   const token = getToken();
-//   return API.get(`/get-packageorderbyidpk/${packageOrderId}`, {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-// };

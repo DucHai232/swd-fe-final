@@ -1,47 +1,55 @@
 import React, { useEffect, useState } from "react";
 import "./ConfirmInOrder.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getKidProfile } from "../../../../redux/actions/kid.action";
-import { getDataPackage } from "../../../../redux/actions/package.action";
-import { getThemes } from "../../../../redux/actions/theme.action";
-import { useParams } from "react-router-dom";
+import { loadFromLocalstorage } from "../../../../utils/LocalstorageMySteryBox";
+import { getThemes } from "../../../../apis/theme.request";
+import { getKidProfile } from "../../../../apis/kid.request";
 
-const ConfirmInOrder = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getKidProfile());
-    dispatch(getDataPackage("", 1));
-    dispatch(getThemes("", 1));
-  }, []);
-  const kid = useSelector((state) => state.kidReducer?.dataKids).filter(
-    (el) => el.id === selectedRowKey
-  )[0];
-  const packageChoose = useSelector(
-    (state) => state.packageReducer?.packages
-  ).filter((el) => el.id == id)[0];
-  const themeChoose = useSelector((state) => state.themeReducer?.themes).filter(
-    (el) => el.id === selectedThemeId
-  )[0];
+const ConfirmInOrder = ({ selectedThemeId, setDataConfirm, setCondition }) => {
   const [data, setData] = useState({
-    kidId: kid?.id,
-    totalPrice: packageChoose?.price,
-    nameOfAdult: kid?.adult.fullName,
-    nameOfKid: kid?.fullName,
-    phone: kid?.adult.phone,
-    email: kid?.adult.email,
-    address: kid?.adult.address,
+    nameOfKid: "",
+    nameOfAdult: "",
+    address: "",
+    phone: "",
+    kidId: "",
   });
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+  const [theme, setTheme] = useState({});
 
   useEffect(() => {
-    if (kid && packageChoose && themeChoose) {
+    const response = loadFromLocalstorage("data-confirm");
+    if (response) {
+      setData({
+        nameOfAdult: response.nameOfAdult || "",
+        nameOfKid: response.nameOfKid || "",
+        address: response.address || "",
+        phone: response.phone || "",
+        kidId: response.kidId || "",
+      });
+    }
+  }, []);
+  useEffect(() => {
+    const fetchDataTheme = async () => {
+      const response = await getThemes("", 1);
+      const rawData = response.data?.themes.filter(
+        (el) => el.id === selectedThemeId
+      )[0];
+      setTheme(rawData);
+    };
+
+    fetchDataTheme();
+  }, []);
+
+  useEffect(() => {
+    if (data && theme) {
       setDataConfirm(data);
     }
-  }, [kid, packageChoose, themeChoose, data]);
+  }, [data, theme]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
     <div className="confirm-container">
       <p className="confirm-title">
@@ -51,50 +59,35 @@ const ConfirmInOrder = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => 
       </p>
       <div className="confirm-content">
         <p>
-          <strong>Kid's name: </strong> {kid?.fullName}
+          <strong>Kid's name: </strong> {data?.nameOfKid}
         </p>
         <p>
-          <strong>Parent's name: </strong> {kid?.adult?.fullName}
+          <strong>Parent's name: </strong>
+          {data?.nameOfAdult}
         </p>
         <p>
-          <strong>Phone number: </strong>{" "}
+          <strong>Phone number: </strong>
           <input
             name="phone"
-            type="tel"
             value={data?.phone}
-            className="input-confirm"
+            type="tel"
             onChange={(e) => handleChange(e)}
+            className="input-confirm"
           />
         </p>
-        <p>
-          <strong>Email: </strong>{" "}
-          <input
-            name="email"
-            type="email"
-            value={data?.email}
-            className="input-confirm"
-            onChange={(e) => handleChange(e)}
-          />
-        </p>
+
         <p>
           <strong>Address: </strong>{" "}
           <input
             name="address"
-            type="text"
             value={data?.address}
-            className="input-confirm"
+            type="text"
             onChange={(e) => handleChange(e)}
+            className="input-confirm"
           />
         </p>
         <p>
-          <strong>Package: </strong> {packageChoose?.name}
-        </p>
-        <p>
-          <strong>Theme: </strong> {themeChoose?.name}
-        </p>
-        <p>
-          <strong>Total price: </strong>
-          {Number(packageChoose?.price).toLocaleString()} VND
+          <strong>Theme: </strong> {theme?.name}
         </p>
       </div>
     </div>
