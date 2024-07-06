@@ -31,7 +31,9 @@ const CreateBox = ({
       name: Yup.string().required("Vui lòng nhập tên box"),
       description: Yup.string().required("Vui lòng nhập miêu tả box"),
       priceAvarage: Yup.number().required("Vui lòng nhập giá trung bình"),
-      quantityProInBox: Yup.number().required("Vui lòng số sản phẩm trong box"),
+      quantityProInBox: Yup.number()
+        .required("Vui lòng số sản phẩm trong box")
+        .max(4, "Số lượng sản phẩm trong box không được vượt quá 4"),
     }),
     onSubmit: async (values) => {
       if (!selectedFile) {

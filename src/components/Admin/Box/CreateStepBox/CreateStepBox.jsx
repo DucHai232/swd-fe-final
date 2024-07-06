@@ -51,7 +51,9 @@ const CreateStepBox = () => {
       description: Yup.string().required("Vui lòng nhập miêu tả box"),
       priceAvarage: Yup.number().required("Vui lòng nhập giá trung bình"),
       age: Yup.string().required("Vui lòng nhập độ tuổi"),
-      quantityProInBox: Yup.number().required("Vui lòng số sản phẩm trong box"),
+      quantityProInBox: Yup.number()
+        .required("Vui lòng số sản phẩm trong box")
+        .max(4, "Số lượng sản phẩm trong box không được vượt quá 4"),
     }),
     onSubmit: async (values) => {
       const imageData = new FormData();

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getProduct } from "../../../../apis/product.request";
 import { CheckSquareOutlined } from "@ant-design/icons";
-import { Card } from "antd";
+import { Card, Modal } from "antd";
+import { useNavigate } from "react-router-dom";
+import { loadFromLocalstorage } from "../../../../utils/LocalstorageMySteryBox";
 const ListProduct = ({
   selectedProductsId,
   setSelectedProductsId,
@@ -9,7 +11,10 @@ const ListProduct = ({
 }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [maximunChoosseProduct, setMaximumChooseProduct] = useState(4);
   useEffect(() => {
+    const loadData = loadFromLocalstorage("data-box");
+    setMaximumChooseProduct(loadData?.quantityProInBox);
     const fetchData = async () => {
       const response = await getProduct("", "", "", "", "", "", "", 1);
       const filterProducts = response.data?.products?.filter(
@@ -20,7 +25,6 @@ const ListProduct = ({
     };
     fetchData();
   }, []);
-  console.log(products);
   const conatinerStyle = {
     padding: "12px",
     display: "grid",
@@ -30,7 +34,27 @@ const ListProduct = ({
     alignItems: "center",
     justifyItems: "center",
   };
-  const toggleSelectProduct = (productId) => {
+  const toggleSelectProduct = (productId, quantity) => {
+    if (
+      selectedProductsId.length >= maximunChoosseProduct &&
+      !selectedProductsId.includes(productId)
+    ) {
+      Modal.warning({
+        title: "Maximum product selection reached",
+        content: `You can select up to ${maximunChoosseProduct} products.`,
+      });
+    } else if (quantity === 0) {
+      Modal.confirm({
+        title: "This product is out of stock",
+        content: "Please add more products",
+        okText: "Ok",
+      });
+    } else {
+      handleSelectProduct(productId);
+    }
+  };
+
+  const handleSelectProduct = (productId) => {
     if (selectedProductsId.includes(productId)) {
       setSelectedProductsId(
         selectedProductsId.filter((id) => id !== productId)
@@ -39,12 +63,13 @@ const ListProduct = ({
       setSelectedProductsId([...selectedProductsId, productId]);
     }
   };
+
   return (
     <div style={conatinerStyle}>
       {products.length > 0 ? (
         products.map((product) => (
           <Card
-            onClick={() => toggleSelectProduct(product.id)}
+            onClick={() => toggleSelectProduct(product.id, product.quantity)}
             style={{
               width: 300,
               border: selectedProductsId.includes(product.id)

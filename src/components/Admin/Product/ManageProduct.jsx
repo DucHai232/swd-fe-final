@@ -26,6 +26,11 @@ const ManageProduct = () => {
       key: "description",
     },
     {
+      title: "Độ tuổi",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
       title: "Đơn giá",
       dataIndex: "price",
       key: "price",

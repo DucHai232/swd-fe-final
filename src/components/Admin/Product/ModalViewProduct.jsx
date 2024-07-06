@@ -60,8 +60,8 @@ const ModalViewProduct = ({
               {dataProduct?.product?.price.toLocaleString("vi-VN")} vnđ
             </li>
             <li>
-              <b>Thuộc Box: </b>
-              {dataProduct?.product?.box?.name}
+              <b>Độ tuổi: </b>
+              {dataProduct?.product?.age}
             </li>
             <li>
               <b>Thuôc theme: </b>

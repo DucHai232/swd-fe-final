@@ -1,15 +1,15 @@
 [
     
     {
-        "value": "male",
+        "value": "MALE",
         "label": "Male"
       },
       {
-        "value": "female",
+        "value": "FEMALE",
         "label": "Female"
       },
       {
-        "value": "all",
+        "value": "OTHER",
         "label": "Other"
       }
 ]

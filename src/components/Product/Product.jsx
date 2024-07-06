@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./Product.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-
 import { Input, Pagination, Select, Space } from "antd";
 const { Search } = Input;
-const onSearch = (value, _e, info) => console.log(info?.source, value);
-
-import toy from "/assets/toy.jpg";
 import not_found from "/assets/not-found.png";
 import { getProduct } from "../../apis/product.request";
-
+import optionGender from "../../data/optionGender.json";
+import optionColors from "../../data/optionColors.json";
+import optionOrigins from "../../data/optionOrigins.json";
+import optionMaterials from "../../data/optionMaterials.json";
+import optionTypes from "../../data/optionTypes.json";
+import optionAges from "../../data/optionAges.json";
+import { getThemes } from "../../apis/theme.request";
 const Product = () => {
   const [themeValue, setThemeValue] = useState(null);
   const [ageValue, setAgeValue] = useState(null);
@@ -22,24 +24,23 @@ const Product = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
+  const [themes, setThemes] = useState([]);
+
   useEffect(() => {
     const fetchDataProduct = async () => {
       const response = await getProduct("", "", "", "", "", "", "", "");
-      setProducts(response.data?.products);
+      setProducts(response.data?.products || []);
+    };
+    const fetchTheme = async () => {
+      const response = await getThemes("", 1);
+      setThemes(response.data?.themes);
     };
     fetchDataProduct();
+    fetchTheme();
   }, []);
 
-  const onSearch = (value, _e, info) => {
-    setSearchTerm(value);
-    setThemeValue(null);
-    setAgeValue(null);
-    setGenderValue(null);
-    setColorValue(null);
-    setTypeValue(null);
-    setMaterialValue(null);
-    setOriginValue(null);
-    setCurrentPage(1);
+  const onSearch = (value) => {
+    setSearchTerm(value.trim().toLowerCase());
   };
 
   const pageSize = 21;
@@ -47,28 +48,27 @@ const Product = () => {
   const filteredProducts = products.filter((product) => {
     const searchTermLower = searchTerm.toLowerCase();
     return (
-      (!themeValue || product.theme === themeValue) &&
+      (!themeValue || product.themeId === themeValue) &&
       (!ageValue || product.age === ageValue) &&
-      (!genderValue || product.gender.toLowerCase() === genderValue) &&
+      (!genderValue || product.gender === genderValue) &&
       (!colorValue || product.color === colorValue) &&
       (!typeValue || product.type === typeValue) &&
       (!materialValue || product.material === materialValue) &&
       (!originValue || product.origin === originValue) &&
       (!searchTerm ||
-        product.theme.toLowerCase().includes(searchTermLower) ||
-        product.code.toLowerCase().includes(searchTermLower) ||
-        product.name.toLowerCase().includes(searchTermLower) ||
-        product.description.toLowerCase().includes(searchTermLower) ||
-        product.age.toLowerCase().includes(searchTermLower) ||
-        product.gender.toLowerCase().includes(searchTermLower) ||
-        product.color.toLowerCase().includes(searchTermLower) ||
-        product.type.toLowerCase().includes(searchTermLower) ||
-        product.material.toLowerCase().includes(searchTermLower) ||
-        product.origin.toLowerCase().includes(searchTermLower))
+        product.theme?.toLowerCase().includes(searchTermLower) ||
+        product.code?.toLowerCase().includes(searchTermLower) ||
+        product.name?.toLowerCase().includes(searchTermLower) ||
+        product.description?.toLowerCase().includes(searchTermLower) ||
+        product.age?.toLowerCase().includes(searchTermLower) ||
+        product.gender?.toLowerCase().includes(searchTermLower) ||
+        product.color?.toLowerCase().includes(searchTermLower) ||
+        product.type?.toLowerCase().includes(searchTermLower) ||
+        product.material?.toLowerCase().includes(searchTermLower) ||
+        product.origin?.toLowerCase().includes(searchTermLower))
     );
   });
 
-  // const paginatedProducts = products.slice((currentPage - 1) * pageSize, currentPage * pageSize);
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
@@ -89,12 +89,9 @@ const Product = () => {
             <Search
               placeholder="Search Product"
               allowClear
-              // enterButton="Search"
               enterButton
               size="large"
-              style={{
-                width: "59%",
-              }}
+              style={{ width: "59%" }}
               onSearch={onSearch}
             />
 
@@ -117,16 +114,10 @@ const Product = () => {
               style={{
                 width: "18%",
               }}
-              options={[
-                { value: "Superheroes", label: "Superheroes" },
-                { value: "Fantasy", label: "Fantasy" },
-                { value: "Animals", label: "Animals" },
-                { value: "Vehicles", label: "Vehicles" },
-                { value: "Music", label: "Music" },
-                { value: "Space", label: "Space" },
-                { value: "Robots", label: "Robots" },
-                { value: "Sports", label: "Sports" },
-              ]}
+              options={themes.map((theme) => ({
+                value: theme.id,
+                label: theme.name,
+              }))}
             />
 
             <Select
@@ -148,12 +139,7 @@ const Product = () => {
               style={{
                 width: "18%",
               }}
-              options={[
-                { value: "3-6", label: "3-6" },
-                { value: "6-9", label: "6-9" },
-                { value: "9-12", label: "9-12" },
-                { value: "12-15", label: "12-15" },
-              ]}
+              options={optionAges}
             />
 
             <Select
@@ -176,11 +162,7 @@ const Product = () => {
                 width: "18%",
                 marginTop: "20px",
               }}
-              options={[
-                { value: "male", label: "Male" },
-                { value: "female", label: "Female" },
-                { value: "unisex", label: "Unisex" },
-              ]}
+              options={optionGender}
             />
             <Select
               className="select-product"
@@ -202,14 +184,7 @@ const Product = () => {
                 width: "18%",
                 marginTop: "20px",
               }}
-              options={[
-                { value: "Red", label: "Red" },
-                { value: "Orange", label: "Orange" },
-                { value: "Black", label: "Black" },
-                { value: "Green", label: "Green" },
-                { value: "Blue", label: "Blue" },
-                { value: "Yellow", label: "Yellow" },
-              ]}
+              options={optionColors}
             />
 
             <Select
@@ -232,15 +207,7 @@ const Product = () => {
                 width: "18%",
                 marginTop: "20px",
               }}
-              options={[
-                { value: "Toys", label: "Toys" },
-                { value: "Robot", label: "Robot" },
-                { value: "Doll", label: "Doll" },
-                { value: "Drum", label: "Drum" },
-                { value: "Car", label: "Car" },
-                { value: "Balloon", label: "Balloon" },
-                { value: "Train", label: "Train" },
-              ]}
+              options={optionTypes}
             />
 
             <Select
@@ -263,16 +230,7 @@ const Product = () => {
                 width: "18%",
                 marginTop: "20px",
               }}
-              options={[
-                { value: "Wood", label: "Wood" },
-                { value: "Glass", label: "Glass" },
-                { value: "Plastic", label: "Plastic" },
-                { value: "Aluminium", label: "Aluminium" },
-                { value: "Copper", label: "Copper" },
-                { value: "Steel", label: "Steel" },
-                { value: "Cloth", label: "Cloth" },
-                { value: "Rubber", label: "Rubber" },
-              ]}
+              options={optionMaterials}
             />
 
             <Select
@@ -295,15 +253,7 @@ const Product = () => {
                 width: "18%",
                 marginTop: "20px",
               }}
-              options={[
-                { value: "China", label: "China" },
-                { value: "Korea", label: "Korea" },
-                { value: "US", label: "US" },
-                { value: "Taiwan", label: "Taiwan" },
-                { value: "Vietnam", label: "Vietnam" },
-                { value: "Thailand", label: "Thailand" },
-                { value: "Singapore", label: "Singapore" },
-              ]}
+              options={optionOrigins}
             />
           </div>
 

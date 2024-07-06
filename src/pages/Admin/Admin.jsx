@@ -6,14 +6,23 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   PieChartOutlined,
-  LogoutOutlined
+  LogoutOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Dropdown, Layout, Menu, message, Space, theme } from "antd";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Layout,
+  Menu,
+  message,
+  Space,
+  theme,
+} from "antd";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import ManageProduct from "../../components/Admin/Product/ManageProduct";
 
-import './Admin.css'
-import logo from "/assets/Logo.png"
+import "./Admin.css";
+import logo from "/assets/Logo.png";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/auth.action";
 
@@ -121,27 +130,25 @@ const Admin = () => {
   const handleLogout = () => {
     dispatch(logout());
     message.success("Log Out Successfully");
-    navigate('/')
+    navigate("/");
   };
 
   const listDropdown = [
     {
       label: "Log out",
-      key: '1',
+      key: "1",
       icon: <LogoutOutlined />,
       onClick: handleLogout,
     },
   ];
 
-  const menu = (
-    <Menu items={listDropdown} />
-  );
+  const menu = <Menu items={listDropdown} />;
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         {/* <div className="demo-logo-vertical" /> */}
         <div className="header-admin">
-          {!collapsed ? <img src={logo} className='logo' /> : <></>}
+          {!collapsed ? <img src={logo} className="logo" /> : <></>}
         </div>
         <Menu
           theme="dark"
@@ -157,8 +164,8 @@ const Admin = () => {
           style={{
             padding: 0,
             background: colorBgContainer,
-            display: 'flex',
-            justifyContent: 'space-between'
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
           <Button
@@ -172,14 +179,23 @@ const Admin = () => {
             }}
           />
 
-          <Dropdown menu={{ items: listDropdown }} trigger={['click']} className='dropdown' >
+          <Dropdown
+            menu={{ items: listDropdown }}
+            trigger={["click"]}
+            className="dropdown"
+          >
             <a onClick={(e) => e.preventDefault()}>
               <Space>
                 <Avatar
                   src={
                     "https://cdn-media.sforum.vn/storage/app/media/THANHAN/avatar-trang-98.jpg"
                   }
-                  style={{ cursor: "pointer", width: '40px', height: '40px', marginRight: '20px' }}
+                  style={{
+                    cursor: "pointer",
+                    width: "40px",
+                    height: "40px",
+                    marginRight: "20px",
+                  }}
                 />
               </Space>
             </a>

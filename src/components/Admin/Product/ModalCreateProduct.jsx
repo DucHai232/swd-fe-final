@@ -6,6 +6,7 @@ import optionOrigins from "../../../data/optionOrigins.json";
 import optionGenders from "../../../data/optionGender.json";
 import optionMaterials from "../../../data/optionMaterials.json";
 import optionTypes from "../../../data/optionTypes.json";
+import optionAges from "../../../data/optionAges.json";
 import { getBox } from "../../../redux/actions/box.action";
 import { getThemes } from "../../../redux/actions/theme.action";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,19 +32,27 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
       type: "",
       material: "",
       origin: "",
+      age: "",
     },
     validationSchema: Yup.object({
       productCode: Yup.string().required("Vui lòng nhập mã sản phẩm"),
       themeId: Yup.string().required("Vui lòng chọn theme"),
       name: Yup.string().required("Vui lòng nhập tên sản phẩm"),
       description: Yup.string().required("Vui lòng miêu tả sản phẩm"),
-      price: Yup.string().required("Vui lòng nhập giá sản phẩm"),
+      price: Yup.string()
+        .required("Vui lòng nhập giá sản phẩm")
+        .test(
+          "max-price",
+          "Giá sản phẩm không được vượt quá 100.000 vnd",
+          (value) => parseFloat(value) <= 100000
+        ),
       quantity: Yup.number().required("Vui lòng nhập số lượng sản phẩm"),
       gender: Yup.string().required("Vui lòng chọn giới tính"),
       color: Yup.string().required("Vui lòng chọn màu sắc"),
       type: Yup.string().required("Vui lòng nhập loại sản phẩm"),
       material: Yup.string().required("Vui lòng nhập chất liệu sản phẩm"),
       origin: Yup.string().required("Vui lòng chọn nguồn gốc sản phẩm"),
+      age: Yup.string().required("Vui lòng chọn độ tuổi"),
     }),
     onSubmit: async (values) => {
       const imageData = new FormData();
@@ -143,7 +152,7 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              width: "calc(50% - 8px)",
+              width: "calc(33% - 8px)",
             }}
           >
             <label>Chất liệu</label>
@@ -174,7 +183,7 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              width: "calc(50% - 8px)",
+              width: "calc(33% - 8px)",
             }}
           >
             <label>Loại sản phẩm</label>
@@ -198,6 +207,37 @@ const ModalCreateProduct = ({ open, setOpen, setCallback }) => {
                 }}
               >
                 {formik.errors.type}{" "}
+              </p>
+            )}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "calc(33% - 8px)",
+            }}
+          >
+            <label>Độ tuổi</label>
+            <Select
+              name="age"
+              onChange={(value) => formik.setFieldValue("age", value)}
+              onBlur={formik.handleBlur}
+              value={formik.values.age}
+              style={{
+                width: "100%",
+              }}
+              options={optionAges}
+            />
+            {formik.errors.age && formik.touched.age && (
+              <p
+                style={{
+                  color: "red",
+                  marginBottom: "15px",
+                  marginTop: "0px",
+                  fontSize: "12px",
+                }}
+              >
+                {formik.errors.age}{" "}
               </p>
             )}
           </div>

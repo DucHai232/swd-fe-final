@@ -20,6 +20,11 @@ const columns = [
     key: "description",
   },
   {
+    title: "Độ tuổi",
+    dataIndex: "age",
+    key: "age",
+  },
+  {
     title: "Giá trung bình",
     dataIndex: "priceAvarage",
     key: "priceAvarage",
