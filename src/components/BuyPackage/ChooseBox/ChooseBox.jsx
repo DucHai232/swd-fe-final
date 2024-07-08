@@ -17,6 +17,7 @@ import {
   saveLocalstorage,
 } from "../../../utils/LocalstorageMySteryBox";
 import { createPackageInPeriod } from "../../../apis/packageInPeriods.request";
+import { createPayment } from "../../../apis/payment.request";
 
 const ChooseBox = () => {
   const { id } = useParams();
@@ -128,9 +129,16 @@ const ChooseBox = () => {
         phone: confirmUserOrder?.phone,
         nameOfAdult: confirmUserOrder?.nameOfAdult,
       });
-      message.success(confirmOrderFromServer.messsage);
+      const paymentResponse = await createPayment({
+        amount: confirmUserOrder.totalPrice,
+      });
+      if (paymentResponse?.data?.result?.return_code === 1) {
+        window.location.href = paymentResponse.data?.result?.order_url;
+        message.success(confirmOrderFromServer.messsage);
+      } else {
+        message.error("Failed to create payment");
+      }
       removeLocalstorage("data-order");
-      navigate("/user/order");
     } else {
       message.error(confirmOrderFromServer.message);
     }
