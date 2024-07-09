@@ -29,6 +29,15 @@ export const updateInfoProfileKid = (profileId, dataUpdate) => {
   });
 };
 
+export const getChooseKid = () => {
+  const token = getToken();
+  return API.get("/get-choose-profiles", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 // export const banProfileKid = (id, status) => {
 //   const token = getToken();
 //   return API.patch(
