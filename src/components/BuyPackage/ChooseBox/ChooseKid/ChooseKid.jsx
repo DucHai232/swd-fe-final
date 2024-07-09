@@ -215,7 +215,7 @@ const ChooseKid = ({
         }}
         pagination={paginationState}
         locale={{
-          emptyText: <Empty description="You have no kid here" />,
+          emptyText: <Empty description="All children are in buying mode" />,
         }}
       />
     </div>
