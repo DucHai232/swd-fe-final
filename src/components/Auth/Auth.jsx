@@ -211,19 +211,19 @@ const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
               {comp === "login" ? "Sign In" : "Sign Up"}
             </button>
 
-            {/* {comp === "login" && (
+            {comp === "login" && (
               <div className="login-other">
                 <p> - or - </p>
                 <button>
                   <img src={google} />
                   Continue with Google
                 </button>
-                <button>
+                {/* <button>
                   <img src={facebook} />
                   Continue with Facebook
-                </button>
+                </button> */}
               </div>
-            )} */}
+            )}
             <div className="text">
               <p className="des">
                 {comp === "login"
