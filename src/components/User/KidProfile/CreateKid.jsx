@@ -131,6 +131,9 @@ export default function CreateKid({
     }
   };
 
+  const maxDate = dayjs().subtract(3, 'year')
+  const minDate = dayjs().subtract(15, 'year');
+
   return (
     <div className="create_kid-container">
       {kid && (
@@ -209,6 +212,8 @@ export default function CreateKid({
                   className="custom-datepicker"
                   value={profile.yob ? dayjs(profile.yob) : null}
                   readOnly={isDisable}
+                  maxDate={maxDate}
+                  minDate={minDate}
                   onChange={handleDateChange}
                   sx={{
                     "& .MuiOutlinedInput-root": {
