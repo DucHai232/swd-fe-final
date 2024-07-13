@@ -211,7 +211,7 @@ const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
               {comp === "login" ? "Sign In" : "Sign Up"}
             </button>
 
-            {comp === "login" && (
+            {/* {comp === "login" && (
               <div className="login-other">
                 <p> - or - </p>
                 <button>
@@ -223,7 +223,7 @@ const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
                   Continue with Facebook
                 </button>
               </div>
-            )}
+            )} */}
             <div className="text">
               <p className="des">
                 {comp === "login"

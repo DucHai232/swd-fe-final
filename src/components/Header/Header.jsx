@@ -62,7 +62,7 @@ const Header = () => {
         <div className="header-right">
           <ul>
             <li onClick={handleClick}>Home</li>
-            <li>About Us</li>
+            {/* <li>About Us</li> */}
             <li onClick={() => navigate("/buy-package")}>Buy Package</li>
             <li onClick={() => navigate('/product')}>Product</li>
             {user ? (
