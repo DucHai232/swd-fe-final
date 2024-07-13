@@ -17,7 +17,7 @@ import {
   saveLocalstorage,
 } from "../../../utils/LocalstorageMySteryBox";
 import { createPackageInPeriod } from "../../../apis/packageInPeriods.request";
-import { createPayment } from "../../../apis/payment.request";
+import { createPayment, orderStatus } from "../../../apis/payment.request";
 
 const ChooseBox = () => {
   const { id } = useParams();
@@ -85,18 +85,31 @@ const ChooseBox = () => {
   const kid = useSelector((state) => state.kidReducer?.dataKids).filter(
     (el) => el.id === selectedRowKey
   )[0];
+
   const next = async () => {
+    if (current + 1 === 3) {
+      if (
+        !dataConfirm.nameOfAdult ||
+        !dataConfirm.phone ||
+        !dataConfirm.email ||
+        !dataConfirm.address
+      ) {
+        message.warning("Please fill out all required information.");
+        return;
+      } else {
+        saveLocalstorage("data-order", dataConfirm);
+      }
+    }
     setCurrent(current + 1);
     window.scrollTo(0, 350);
     if (current + 1 === 2) {
-      await updateInfoProfileKid(selectedRowKey, { themeId: selectedThemeId });
+      await updateInfoProfileKid(selectedRowKey, {
+        themeId: selectedThemeId,
+      });
       setDataGetBox({
         themeId: selectedThemeId,
         yob: kid?.yob,
       });
-    }
-    if (current + 1 === 3) {
-      saveLocalstorage("data-order", dataConfirm);
     }
   };
   const prev = () => {
@@ -134,6 +147,16 @@ const ChooseBox = () => {
       });
       if (paymentResponse?.data?.result?.return_code === 1) {
         window.location.href = paymentResponse.data?.result?.order_url;
+        const response = await orderStatus(
+          paymentResponse.data?.order?.app_trans_id
+        );
+        if (response.data?.return_code === 3) {
+          message.warning(response.data?.return_message);
+        } else if (response.data?.return_code === 2) {
+          message.error(response.data?.return_message);
+        } else {
+          message.success(response.data?.return_message);
+        }
         message.success(confirmOrderFromServer.messsage);
       } else {
         message.error("Failed to create payment");

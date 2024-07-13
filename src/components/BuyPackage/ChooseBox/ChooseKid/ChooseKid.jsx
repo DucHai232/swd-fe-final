@@ -5,6 +5,7 @@ import Highlighter from "react-highlight-words";
 import "./ChooseKid.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getKidProfile } from "../../../../redux/actions/kid.action";
+import { getChooseKid } from "../../../../apis/kid.request";
 
 const ChooseKid = ({
   setNextEnabled,
@@ -171,7 +172,7 @@ const ChooseKid = ({
   };
 
   const [isRowSelected, setIsRowSelected] = useState(false);
-
+  const [kids, setKids] = useState([]);
   const handleRowSelection = () => ({
     onClick: () => {
       setIsRowSelected(true);
@@ -184,8 +185,12 @@ const ChooseKid = ({
     }
     setNextEnabled(isRowSelected);
     dispatch(getKidProfile());
+    const fetchDataKidProfile = async () => {
+      const response = await getChooseKid();
+      setKids(response.data?.kidProfiles);
+    };
+    fetchDataKidProfile();
   }, [selectedRowKey, isRowSelected, setNextEnabled]);
-  const kids = useSelector((state) => state.kidReducer?.dataKids);
 
   return (
     <div className="choose_kid-container">
@@ -210,7 +215,7 @@ const ChooseKid = ({
         }}
         pagination={paginationState}
         locale={{
-          emptyText: <Empty description="You have no kid here" />,
+          emptyText: <Empty description="All children are in buying mode" />,
         }}
       />
     </div>

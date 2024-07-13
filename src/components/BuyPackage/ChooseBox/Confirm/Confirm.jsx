@@ -5,6 +5,7 @@ import { getKidProfile } from "../../../../redux/actions/kid.action";
 import { getDataPackage } from "../../../../redux/actions/package.action";
 import { getThemes } from "../../../../redux/actions/theme.action";
 import { useParams } from "react-router-dom";
+import { message } from "antd";
 
 const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const { id } = useParams();
@@ -42,6 +43,7 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
       setDataConfirm(data);
     }
   }, [kid, packageChoose, themeChoose, data]);
+
   return (
     <div className="confirm-container">
       <p className="confirm-title">
@@ -54,7 +56,14 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
           <strong>Kid's name: </strong> {kid?.fullName}
         </p>
         <p>
-          <strong>Parent's name: </strong> {kid?.adult?.fullName}
+          <strong>Parent's name: </strong>
+          <input
+            name="nameOfAdult"
+            type="tel"
+            value={data?.nameOfAdult}
+            className="input-confirm"
+            onChange={(e) => handleChange(e)}
+          />
         </p>
         <p>
           <strong>Phone number: </strong>{" "}
