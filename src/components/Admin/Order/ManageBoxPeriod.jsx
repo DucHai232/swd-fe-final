@@ -1,10 +1,5 @@
 import { Button, Select, Space, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getPackageInPeriodStatus } from "../../../apis/packageInPeriods.request";
 import ModalUpdateOrders from "./ModalUpdateOrders";
 

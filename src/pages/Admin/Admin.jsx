@@ -91,8 +91,13 @@ const items = [
       },
       {
         key: "3",
-        label: "Quản lý đơn hàng",
+        label: "Quản lý gói hàng",
         route: "orders/manage-box-period",
+      },
+      {
+        key: "4",
+        label: "Quản lý đơn hàng",
+        route: "orders/manage-order",
       },
     ],
   },

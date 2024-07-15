@@ -11,3 +11,7 @@ export const createTheme = (data) => {
 export const deleteTheme = (themeId, status) => {
   return API.patch(`/delete-theme/${themeId}`, status);
 };
+
+export const updateTheme = (themeId, data) => {
+  return API.put(`/update-theme/${themeId}`, data);
+};

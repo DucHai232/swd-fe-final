@@ -9,6 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import ModalCreate from "./ModalCreate";
 import ModalConfirm from "../../Modal-Confirm/ModalConfirm";
+import ModalEdit from "./ModalEdit";
 const ManageTheme = () => {
   const columns = [
     {
@@ -38,7 +39,7 @@ const ManageTheme = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <button className="action edit">
+          <button className="action edit" onClick={() => showModalEdit(record)}>
             <FaRegEdit />
           </button>
           <button
@@ -70,6 +71,8 @@ const ManageTheme = () => {
 
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [callback, setCallback] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(null);
   const [search, setSearch] = useState("");
   useEffect(() => {
     dispatch(getThemes(search, 1));
@@ -79,6 +82,13 @@ const ManageTheme = () => {
   };
   const handleCancelCreate = () => {
     setIsOpenCreate(false);
+  };
+  const showModalEdit = (theme) => {
+    setCurrentTheme(theme);
+    setIsOpenEdit(true);
+  };
+  const handleCancelEdit = () => {
+    setIsOpenEdit(false);
   };
 
   const dataThemes = useSelector((state) => state.themeReducer.themes);
@@ -104,6 +114,12 @@ const ManageTheme = () => {
           isOpenCreate={isOpenCreate}
           handleCancelCreate={handleCancelCreate}
           setIsOpenCreate={setIsOpenCreate}
+          setCallback={setCallback}
+        />
+        <ModalEdit
+          isOpenEdit={isOpenEdit}
+          handleCancelEdit={handleCancelEdit}
+          themeData={currentTheme}
           setCallback={setCallback}
         />
         <ModalConfirm

@@ -13,6 +13,7 @@ import ModalFilter from "./ModalFilter";
 import ModalCreateProduct from "./ModalCreateProduct";
 import { deleteProductById } from "../../../apis/product.request";
 import { getProducts } from "../../../redux/actions/product.action";
+import ModalEditProduct from "./ModalEditProduct";
 const ManageProduct = () => {
   const columns = [
     {
@@ -64,7 +65,7 @@ const ManageProduct = () => {
           >
             <FaEye />
           </button>
-          <button className="action edit">
+          <button className="action edit" onClick={() => showModalEdit(record)}>
             <FaRegEdit />
           </button>
           <button
@@ -87,6 +88,7 @@ const ManageProduct = () => {
   const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
   const [isModalFilterOpen, setIsModalFilterOpen] = useState(false);
   const [isOpenModalCreate, setIsOpenModalCreate] = useState(false);
+  const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
   const [dataFilter, setDataFilter] = useState({
     fromPrice: "",
     toPrice: "",
@@ -95,11 +97,13 @@ const ManageProduct = () => {
     boxIdQuery: "",
     themeIdQuery: "",
   });
+  const [productToEdit, setProductToEdit] = useState(null);
   // Modal confirm
   const showModalConfirm = (productId) => {
     setIsModalConfirmOpen(true);
     setProductIdDelete(productId);
   };
+
   const handleConfirmOk = () => {
     const deleteData = async () => {
       try {
@@ -132,9 +136,16 @@ const ManageProduct = () => {
   const handleViewCancel = () => {
     setIsModalViewOpen(false);
   };
+  const showModalEdit = (product) => {
+    setIsOpenModalEdit(true);
+    setProductToEdit(product);
+  };
+  const handleEditCancel = () => {
+    setIsOpenModalEdit(false);
+  };
 
   const showModalCreate = () => {
-    setIsOpenCreate(true);
+    setIsOpenModalCreate(true);
   };
   useEffect(() => {
     dispatch(
@@ -208,6 +219,12 @@ const ManageProduct = () => {
       <ModalCreateProduct
         open={isOpenModalCreate}
         setOpen={setIsOpenModalCreate}
+        setCallback={setCallback}
+      />
+      <ModalEditProduct
+        isOpenEdit={isOpenModalEdit}
+        handleCancelEdit={handleEditCancel}
+        initialValues={productToEdit}
         setCallback={setCallback}
       />
       {/* <ModalImage /> */}

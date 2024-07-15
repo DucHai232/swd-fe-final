@@ -24,6 +24,7 @@ import getUserLocalstorage from "./utils/UserCurrent";
 import CreateStepBox from "./components/Admin/Box/CreateStepBox/CreateStepBox";
 import Product from "./components/Product/Product";
 import ManageBoxPeriod from "./components/Admin/Order/ManageBoxPeriod";
+import ManageOrderCustomer from "./components/Admin/Order/ManageOrderCustomer";
 
 function App() {
   const user =
@@ -44,6 +45,7 @@ function App() {
           <Route path="manage-product" element={<ManageProduct />} />
           <Route path="orders/revenue" element={<Revenue />} />
           <Route path="orders/confirm-box-order" element={<ManageOrder />} />
+          <Route path="orders/manage-order" element={<ManageOrderCustomer />} />
           <Route
             path="orders/manage-box-period"
             element={<ManageBoxPeriod />}
