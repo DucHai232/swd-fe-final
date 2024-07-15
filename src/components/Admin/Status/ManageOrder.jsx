@@ -22,6 +22,7 @@ const ManageOrder = () => {
         email: item.packageDetail.email,
         address: item.packageDetail.address,
         packageOrderId: item.packageDetail.id,
+        codeOrder: item.packageDetail.codeOrder,
       }));
       setDataSource(newData);
     };
@@ -39,6 +40,11 @@ const ManageOrder = () => {
     message.success("Xác nhận gói hàng thành công");
   };
   const columns = [
+    {
+      title: "Order code",
+      dataIndex: "codeOrder",
+      key: "codeOrder",
+    },
     {
       title: "Tên người mua",
       dataIndex: "nameOfAdult",

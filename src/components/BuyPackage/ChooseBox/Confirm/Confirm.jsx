@@ -25,7 +25,9 @@ const Confirm = ({ selectedRowKey, selectedThemeId, setDataConfirm }) => {
   const themeChoose = useSelector((state) => state.themeReducer?.themes).filter(
     (el) => el.id === selectedThemeId
   )[0];
+  const numberCode = Math.floor(100000 + Math.random() * 900000).toString();
   const [data, setData] = useState({
+    codeOrder: `ORD-${numberCode}`,
     kidId: kid?.id,
     totalPrice: packageChoose?.price,
     nameOfAdult: kid.adult?.fullName,
