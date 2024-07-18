@@ -86,6 +86,7 @@ const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
           }
         } else {
           const response = await register(values);
+
           if (response.data.success) {
             message.success(response.data.message);
             navigate("/login");
@@ -93,16 +94,8 @@ const Auth = ({ comp, /* title, */ route, bgColor, bgCard, bgBtn }) => {
             message.error(response.data.message);
           }
         }
-        // const res = store.getState().authReducer.res;
-        // if (res?.success) {
-        //   message.success(res.message);
-        //   formik.handleReset();
-        //   navigate("/");
-        // } else {
-        //   message.error(res.message);
-        // }
       } catch (error) {
-        console.log(error.message);
+        message.error(error.response.data.message);
       }
     },
   });

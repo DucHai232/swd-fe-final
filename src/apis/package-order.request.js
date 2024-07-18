@@ -25,3 +25,17 @@ export const getAllOrder = () => {
 export const addPackInPeriod = (packageOrderId) => {
   return API.get(`/push-product-order/${packageOrderId}`);
 };
+
+export const getOrderByDate = (data) => {
+  const token = getToken();
+  return API.post("/get-order-by-date", data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const updateStatus = (packageOrderId, status) => {
+  const token = getToken();
+  return API.patch(`/update-status/${packageOrderId}`, status, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

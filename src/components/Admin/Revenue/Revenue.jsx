@@ -7,12 +7,18 @@ import { FaArrowUp } from "react-icons/fa";
 import { FaArrowDownLong } from "react-icons/fa6";
 import Chart from "./Chart";
 import { Button, DatePicker, message, Select } from "antd";
-import { revenueMonth, revenueWeek } from "../../../apis/dashboard.request";
+import {
+  revenueDate,
+  revenueMonth,
+  revenueWeek,
+} from "../../../apis/dashboard.request";
 import optionMonths from "../../../data/optionMonths.json";
+const { RangePicker } = DatePicker;
 const Revenue = () => {
   const [dataRevenue, setDataRevenue] = useState({});
   const [monthSelected, setMonthSelected] = useState(null);
   const [dataMonth, setDataMonth] = useState([]);
+  const [dates, setDates] = useState([null, null]);
   useEffect(() => {
     const fetchRevenue = async () => {
       const response = await revenueWeek();
@@ -23,7 +29,7 @@ const Revenue = () => {
 
   const listData = [
     {
-      number: dataRevenue?.sumMoneyThisWeek,
+      number: dataRevenue?.sumMoneyInDateRange,
       des: "Tổng tiền",
       color: "color-blue",
       status: "reduce",
@@ -32,7 +38,7 @@ const Revenue = () => {
       icon: <IoStatsChart />,
     },
     {
-      number: dataRevenue?.countThisWeek,
+      number: dataRevenue?.countOrders,
       des: "Đơn hàng",
       color: "color-green",
       status: "reduce",
@@ -41,7 +47,7 @@ const Revenue = () => {
       icon: <CiShoppingCart />,
     },
     {
-      number: dataRevenue?.totalNewAccountsThisWeek,
+      number: dataRevenue?.totalNewAccountsInDateRange,
       des: "Khách hàng mới",
       color: "color-red",
       status: "increase",
@@ -74,6 +80,30 @@ const Revenue = () => {
       }
     } catch (error) {
       console.log(error.message);
+    }
+  };
+  const handleDateChange = (dates) => {
+    setDates(dates);
+  };
+  const handleSubmit = async () => {
+    const startDate = dates[0] ? dates[0].format("YYYY-MM-DD") : null;
+    const endDate = dates[1] ? dates[1].format("YYYY-MM-DD") : null;
+
+    if (!startDate || !endDate) {
+      message.error("Both startDate and endDate are required");
+      return;
+    }
+
+    try {
+      const response = await revenueDate({ startDate, endDate });
+      if (response.data.success) {
+        message.success("Get data success");
+        setDataRevenue(response.data);
+      } else {
+        message.error("Error system");
+      }
+    } catch (error) {
+      console.error("Error fetching revenue data:", error);
     }
   };
   return (
@@ -113,8 +143,7 @@ const Revenue = () => {
           <div className="filter-date">
             <div className="title">Chọn ngày tháng</div>
             <div className="date">
-              <DatePicker style={{ width: "100%" }} />
-              <DatePicker style={{ width: "100%", marginTop: "12px" }} />
+              <RangePicker onChange={handleDateChange} />
             </div>
             <button
               style={{
@@ -130,6 +159,7 @@ const Revenue = () => {
                 background: "#3572EF",
                 borderRadius: "8px",
               }}
+              onClick={handleSubmit}
             >
               Dữ liệu
             </button>

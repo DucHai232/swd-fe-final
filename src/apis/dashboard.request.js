@@ -8,3 +8,7 @@ export const revenueWeek = () => {
 export const revenueMonth = (month) => {
   return API.get(`/revenue-month/${month}`);
 };
+
+export const revenueDate = (data) => {
+  return API.post("/revenue-date", data);
+};
