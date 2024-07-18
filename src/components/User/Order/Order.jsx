@@ -3,11 +3,16 @@ import "./Order.css";
 import { getPackageOrderByUserId } from "../../../apis/package-order.request";
 import { formatDateSplitT } from "../../../utils/FormatDate";
 import { getPackage } from "../../../apis/package.request";
-import { Breadcrumb, message } from "antd";
+import { Breadcrumb, Button, message } from "antd";
 import { FaEye } from "react-icons/fa";
 import ChooseProduct from "./ChooseProduct";
-import { getDataPackagePeriodOfPackageOrder } from "../../../apis/packageInPeriods.request";
+import {
+  getAllPackageInPeriods,
+  getDataPackagePeriodOfPackageOrder,
+} from "../../../apis/packageInPeriods.request";
 import { saveLocalstorage } from "../../../utils/LocalstorageMySteryBox";
+import { getProductById } from "../../../apis/product.request";
+import { getBoxById } from "../../../apis/box.request";
 
 const Order = () => {
   const [dataOrder, setDataOrder] = useState([]);
@@ -19,6 +24,10 @@ const Order = () => {
   const [currentPackageOrderId, setCurrentPackageOrderId] = useState(null);
   const [currentDetailIndex, setCurrentDetailIndex] = useState({});
   const [packageId, setPackageId] = useState(null);
+  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [viewProduct, setViewProduct] = useState(false);
+  const [currentProductId, setCurrentProductId] = useState(null);
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -93,42 +102,31 @@ const Order = () => {
     setOpenChooseProduct(false);
   };
 
-  const renderProduct = (data) => (
+  const renderProduct = () => (
     <ul className="list-data">
       <li>
         <strong>Tên sản phẩm: </strong>
-        {data?.name}
+        {product?.name}
       </li>
       <li>
         <strong>Miêu tả: </strong>
-        {data?.description}
+        {product?.description}
       </li>
       <li>
         <strong>Màu sắc: </strong>
-        {data?.color}
+        {product?.color}
       </li>
       <li>
         <strong>Xuất xứ: </strong>
-        {data?.origin}
+        {product?.origin}
       </li>
       <li>
         <strong>Chất liệu: </strong>
-        {data?.material}
+        {product?.material}
       </li>
       <li>
         <strong>Loại đồ chơi: </strong>
-        {data?.type}
-      </li>
-      <li
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "row",
-          gap: "5px",
-        }}
-      >
-        <strong>Hình ảnh: </strong>
-        <FaEye />
+        {product?.type}
       </li>
     </ul>
   );
@@ -181,6 +179,18 @@ const Order = () => {
 
   const handleDetailClick = (index, type) => {
     setCurrentDetailIndex({ index, type });
+  };
+
+  const viewProductInBox = async (packageInPeriodId, index) => {
+    const res = await getAllPackageInPeriods();
+    const result = res.data?.packageInPeriods?.filter(
+      (el) => el.id === packageInPeriodId
+    )[0];
+    if (result) {
+      const responseBox = await getBoxById(result?.boxId);
+      setProducts(responseBox.data.box[0].productsId);
+      setViewProduct(index);
+    }
   };
 
   return (
@@ -254,11 +264,15 @@ const Order = () => {
                       </li>
                       {el.dates.confirmDate && (
                         <li className={keyMenu === "product" ? "active" : ""}>
-                          <strong>Thông tin sản phẩm:</strong> Đồ chơi trẻ em{" "}
-                          <FaEye
-                            style={{ cursor: "pointer" }}
-                            onClick={() => handleDetailClick(index, "product")}
-                          />
+                          {el.packageOrder.packageInPeriodIds.map(
+                            (item, index) => (
+                              <Button
+                                onClick={() => viewProductInBox(item, index)}
+                              >
+                                Sản phẩm {index + 1}
+                              </Button>
+                            )
+                          )}
                         </li>
                       )}
 
@@ -273,9 +287,7 @@ const Order = () => {
                     </ul>
                   </div>
                   <div className="right">
-                    {currentDetailIndex.index === index &&
-                      currentDetailIndex.type === "product" &&
-                      renderProduct(el.product)}
+                    {viewProduct === index && renderProduct()}
                     {currentDetailIndex.index === index &&
                       currentDetailIndex.type === "package" &&
                       renderPackage(el.packages)}

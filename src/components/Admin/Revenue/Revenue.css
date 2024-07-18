@@ -116,3 +116,16 @@
     top: 20%;
     padding: 12px;
 }
+
+.select-month{
+    margin-top: 50px;
+    width: 94%;
+   margin-left: 12px;
+   margin-right: 24px;
+}
+
+.btn-data{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

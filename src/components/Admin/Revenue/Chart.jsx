@@ -19,35 +19,69 @@ ChartJS.register(
   Legend
 );
 
-const data = {
-  labels: ["Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4"],
-  datasets: [
-    {
-      label: "Doanh thu theo tuần",
-      backgroundColor: "rgba(75,192,192,0.2)",
-      borderColor: "rgba(75,192,192,1)",
-      borderWidth: 1,
-      hoverBackgroundColor: "rgba(75,192,192,0.4)",
-      hoverBorderColor: "rgba(75,192,192,1)",
-      data: [15, 20, 110, 100, 200],
-    },
-  ],
-};
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Doanh thu tháng 5",
-    },
-  },
-};
+const Chart = ({ dataMonth, monthSelected }) => {
+  const dataValues = [
+    dataMonth.week1 || 0,
+    dataMonth.week2 || 0,
+    dataMonth.week3 || 0,
+    dataMonth.week4 || 0,
+    dataMonth.week5 || 0,
+  ];
 
-const Chart = () => {
+  const labels = [];
+  const filteredDataValues = [];
+  for (let i = 0; i < dataValues.length; i++) {
+    if (dataValues[i] !== 0) {
+      labels.push(`Week ${i + 1}`);
+      filteredDataValues.push(dataValues[i]);
+    }
+  }
+
+  const monthName = monthNames[monthSelected - 1];
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Revenue by week",
+        backgroundColor: "rgba(75,192,192,0.2)",
+        borderColor: "rgba(75,192,192,1)",
+        borderWidth: 1,
+        hoverBackgroundColor: "rgba(75,192,192,0.4)",
+        hoverBorderColor: "rgba(75,192,192,1)",
+        data: filteredDataValues,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: monthSelected ? `Monthly revenue ${monthName}` : "No data",
+      },
+    },
+  };
+
   return <Bar data={data} options={options} />;
 };
 

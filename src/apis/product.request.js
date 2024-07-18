@@ -31,3 +31,7 @@ export const createProduct = (data) => {
 export const randomProduct = (packageId, kidId) => {
   return API.get(`/random-product/${kidId}/${packageId}`);
 };
+
+export const updateProduct = (productId, data) => {
+  return API.put(`/update-product/${productId}`, data);
+};
