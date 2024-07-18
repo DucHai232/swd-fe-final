@@ -104,30 +104,20 @@ const Order = () => {
 
   const renderProduct = () => (
     <ul className="list-data">
-      <li>
-        <strong>Tên sản phẩm: </strong>
-        {product?.name}
-      </li>
-      <li>
-        <strong>Miêu tả: </strong>
-        {product?.description}
-      </li>
-      <li>
-        <strong>Màu sắc: </strong>
-        {product?.color}
-      </li>
-      <li>
-        <strong>Xuất xứ: </strong>
-        {product?.origin}
-      </li>
-      <li>
-        <strong>Chất liệu: </strong>
-        {product?.material}
-      </li>
-      <li>
-        <strong>Loại đồ chơi: </strong>
-        {product?.type}
-      </li>
+      {product && product.length > 0 ? (
+        product.map((prod, index) => (
+          <li key={index}>
+            <strong>Tên sản phẩm: </strong> {prod?.name} <br />
+            <strong>Miêu tả: </strong> {prod?.description} <br />
+            <strong>Màu sắc: </strong> {prod?.color} <br />
+            <strong>Xuất xứ: </strong> {prod?.origin} <br />
+            <strong>Chất liệu: </strong> {prod?.material} <br />
+            <strong>Loại đồ chơi: </strong> {prod?.type} <br />
+          </li>
+        ))
+      ) : (
+        <li>No products available</li>
+      )}
     </ul>
   );
 
@@ -182,14 +172,31 @@ const Order = () => {
   };
 
   const viewProductInBox = async (packageInPeriodId, index) => {
-    const res = await getAllPackageInPeriods();
-    const result = res.data?.packageInPeriods?.filter(
-      (el) => el.id === packageInPeriodId
-    )[0];
-    if (result) {
-      const responseBox = await getBoxById(result?.boxId);
-      setProducts(responseBox.data.box[0].productsId);
-      setViewProduct(index);
+    try {
+      const packageInPeriodRes = await getPackageInPeriodById(
+        packageInPeriodId
+      );
+      const boxId = packageInPeriodRes.data?.boxId;
+      if (boxId) {
+        const res = await getBoxById(boxId);
+        const box = res.data?.box;
+        if (box) {
+          const productsIds = box.productsId;
+          if (productsIds) {
+            const productsPromises = productsIds.map((id) =>
+              getProductById(id)
+            );
+            const productsResponses = await Promise.all(productsPromises);
+            const productsData = productsResponses.map(
+              (res) => res.data?.product
+            );
+            setProducts(productsData);
+            setViewProduct(index);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching product data:", error.message);
     }
   };
 
@@ -262,11 +269,12 @@ const Order = () => {
                       <li>
                         <strong>Đơn hàng:</strong> Đơn hàng {index + 1}
                       </li>
-                      {el.dates.confirmDate && (
+                      {/* {el.dates.confirmDate && (
                         <li className={keyMenu === "product" ? "active" : ""}>
                           {el.packageOrder.packageInPeriodIds.map(
                             (item, index) => (
                               <Button
+                                key={index}
                                 onClick={() => viewProductInBox(item, index)}
                               >
                                 Sản phẩm {index + 1}
@@ -274,7 +282,7 @@ const Order = () => {
                             )
                           )}
                         </li>
-                      )}
+                      )} */}
 
                       <li className={keyMenu === "status" ? "active" : ""}>
                         <strong>Trạng thái:</strong>{" "}
@@ -301,7 +309,6 @@ const Order = () => {
             {getPackageNumberOfSend(packageId) > dataPackagePeriods.length && (
               <button
                 className="btn-product-next"
-                // onClick={() => setOpenChooseProduct(true)}
                 onClick={() => handleOpenNextBox()}
               >
                 Chọn sản phẩm tiếp theo
