@@ -8,6 +8,7 @@ import ModalConfirm from "../../Modal-Confirm/ModalConfirm";
 import { deleteSoftPackage } from "../../../apis/package.request";
 import ModalCreatePackage from "./ModalCreatePackage";
 import { getDataPackage } from "../../../redux/actions/package.action";
+import ModalEditPackage from "./ModalEditPackage";
 const ManagePackage = () => {
   const columns = [
     {
@@ -37,7 +38,7 @@ const ManagePackage = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <button className="action edit">
+          <button className="action edit" onClick={() => showModalEdit(record)}>
             <FaRegEdit />
           </button>
           <button
@@ -54,8 +55,10 @@ const ManagePackage = () => {
   const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
   const [packageId, setPackageId] = useState("");
   const [isOpenCreate, setIsOpenCreate] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [callback, setCallback] = useState(false);
   const [search, setSearch] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   const showModalConfirm = (id) => {
     setIsModalConfirmOpen(true);
@@ -88,9 +91,18 @@ const ManagePackage = () => {
     setIsOpenCreate(false);
   };
 
+  const showModalEdit = (record) => {
+    setSelectedPackage(record);
+    setIsOpenEdit(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsOpenEdit(false);
+  };
+
   useEffect(() => {
     dispatch(getDataPackage(search, 1));
-  }, [callback, search]);
+  }, [dispatch, callback, search]);
 
   const dataPackage = useSelector((state) => state.packageReducer?.packages);
   return (
@@ -132,6 +144,15 @@ const ManagePackage = () => {
         setCallback={setCallback}
         setIsOpenCreate={setIsOpenCreate}
       />
+      {selectedPackage && (
+        <ModalEditPackage
+          isModalOpen={isOpenEdit}
+          handleCancel={handleCancelEdit}
+          setIsOpenEdit={setIsOpenEdit}
+          setCallback={setCallback}
+          packageData={selectedPackage}
+        />
+      )}
     </>
   );
 };
