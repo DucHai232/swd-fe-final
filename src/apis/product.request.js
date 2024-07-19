@@ -1,4 +1,5 @@
 import { Api } from "../utils/BaseUrlServer";
+import { getToken } from "../utils/Token";
 const API = Api();
 export const getProduct = (
   boxIdQuery,
@@ -25,7 +26,12 @@ export const deleteProductById = (productId) => {
 };
 
 export const createProduct = (data) => {
-  return API.post("/create-product", data);
+  const token = getToken();
+  return API.post("/create-product", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const randomProduct = (packageId, kidId) => {
@@ -33,5 +39,10 @@ export const randomProduct = (packageId, kidId) => {
 };
 
 export const updateProduct = (productId, data) => {
-  return API.put(`/update-product/${productId}`, data);
+  const token = getToken();
+  return API.put(`/update-product/${productId}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

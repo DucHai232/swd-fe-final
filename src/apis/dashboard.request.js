@@ -1,14 +1,30 @@
 import { Api } from "../utils/BaseUrlServer";
+import { getToken } from "../utils/Token";
 const API = Api();
 
 export const revenueWeek = () => {
-  return API.get("/revenue-week");
+  const token = getToken();
+  return API.get("/revenue-week", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const revenueMonth = (month) => {
-  return API.get(`/revenue-month/${month}`);
+  const token = getToken();
+  return API.get(`/revenue-month/${month}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const revenueDate = (data) => {
-  return API.post("/revenue-date", data);
+  const token = getToken();
+  return API.post("/revenue-date", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

@@ -1,0 +1,1366 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "2.0.0",
+      "title": "MysteryBoxAPIs",
+      "description": "All APIs for MysteryBoxAPIs website"
+    },
+    "host": "mysterybox-swd-server-qkfx.onrender.com",
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "securityDefinitions": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "authorization",
+        "description": "Bearer token to authorize"
+      }
+    },
+    "tags": [
+      {
+        "name": "Authenticate",
+        "description": "APIs for authentication"
+      },
+      {
+        "name": "Kid Profile",
+        "description": "APIs for kid profile"
+      },
+      {
+        "name": "Product",
+        "description": "APIs for products"
+      },
+      {
+        "name": "Package",
+        "description": "APIs for package"
+      },
+      {
+        "name": "MysteryBox",
+        "description": "APIs for mysterybox"
+      },
+      {
+        "name": "Order",
+        "description": "APIs for orders"
+      },
+      {
+        "name": "Theme",
+        "description": "APIs for theme"
+      },
+      {
+        "name": "Period",
+        "description": "APIs for periods"
+      }
+    ],
+    "paths": {
+      "/api/v1/register": {
+        "post": {
+          "tags": [
+            "Authenticate"
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "phone": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/login": {
+        "post": {
+          "tags": [
+            "Authenticate"
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/create-profile": {
+        "post": {
+          "tags": [
+            "Kid Profile"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "example": "fullName"
+                  },
+                  "gender": {
+                    "example": "MALE/FEMALE"
+                  },
+                  "yob": {
+                    "example": "2017-08-15"
+                  },
+                  "themeId": {
+                    "example": "2f9a1666-1c03-11ef-9f88-a0510b5d5f6a"
+                  },
+                  "color": {
+                    "example": "red"
+                  },
+                  "material": {
+                    "example": "Wood"
+                  },
+                  "origin": {
+                    "example": "China"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/get-profiles": {
+        "get": {
+          "tags": [
+            "Kid Profile"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/update-profile/{id}": {
+        "patch": {
+          "tags": [
+            "Kid Profile"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "example": "fullName"
+                  },
+                  "gender": {
+                    "example": "MALE/FEMALE"
+                  },
+                  "yob": {
+                    "example": "2017-08-15"
+                  },
+                  "themeId": {
+                    "example": "2f9a1666-1c03-11ef-9f88-a0510b5d5f6a"
+                  },
+                  "color": {
+                    "example": "red"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Updated"
+            }
+          }
+        }
+      },
+      "/api/v1/ban-profile/{id}": {
+        "delete": {
+          "tags": [
+            "Kid Profile"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Banned"
+            }
+          }
+        }
+      },
+      "/api/v1/create-package": {
+        "post": {
+          "tags": [
+            "Package"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "Bộ đồ chơi xây dựng"
+                  },
+                  "description": {
+                    "example": "Bộ đồ chơi xây dựng giúp trẻ em phát triển kỹ năng sáng tạo và logic."
+                  },
+                  "image": {
+                    "example": "string"
+                  },
+                  "price": {
+                    "example": "370.000 VND"
+                  },
+                  "numberOfSend": {
+                    "example": 75
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/get-package": {
+        "get": {
+          "tags": [
+            "Package"
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/update-package/{id}": {
+        "patch": {
+          "tags": [
+            "Package"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "Bộ đồ chơi xây dựng"
+                  },
+                  "description": {
+                    "example": "Bộ đồ chơi xây dựng giúp trẻ em phát triển kỹ năng sáng tạo và logic."
+                  },
+                  "image": {
+                    "example": "string"
+                  },
+                  "price": {
+                    "example": "370.000 VND"
+                  },
+                  "numberOfSend": {
+                    "example": 75
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/delete-soft-package/{id}": {
+        "delete": {
+          "tags": [
+            "Package"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/add-order-package/{id}": {
+        "post": {
+          "tags": [
+            "Order"
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "packageId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codeOrder": {
+                    "example": "Order-99999"
+                  },
+                  "kidId": {
+                    "example": 1
+                  },
+                  "totalPrice": {
+                    "example": 500000
+                  },
+                  "nameOfAdult": {
+                    "example": "Nguyen van A"
+                  },
+                  "nameOfKid": {
+                    "example": "Nguyen van con"
+                  },
+                  "phone": {
+                    "example": "0123456789"
+                  },
+                  "email": {
+                    "example": "email@gamil.com"
+                  },
+                  "address": {
+                    "example": "123 Ben Van Don"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/get-package-order-by-userid": {
+        "get": {
+          "tags": [
+            "Order"
+          ],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-package-order-by-idpk/{id}": {
+        "get": {
+          "tags": ["Package"],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/push-package-in-period/{id}": {
+        "patch": {
+          "tags": ["Package"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "packageInPeriodId": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-all-order": {
+        "get": {
+          "tags": ["Order"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "authorization",
+              "in": "header",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/push-product-order/{packageOrderId}": {
+        "get": {
+          "tags": ["Order"], 
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "packageOrderId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/revenue-week": {
+        "get": {
+          "tags": ["DashBoard"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-current-period": {
+        "get": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      },
+      "/api/v1/set-date/{id}": {
+        "get": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "authorization",
+              "in": "header",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/create-period": {
+        "post": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "authorization",
+              "in": "header",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/set-period/{id}": {
+        "get": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "authorization",
+              "in": "header",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/disable-period/{id}": {
+        "patch": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "authorization",
+              "in": "header",
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/create-theme": {
+        "post": {
+          "tags": ["Theme"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "properties": {
+                  "name":{
+                    "example":"string"
+                  },
+                  "description":{
+                    "example":"string"
+                  },
+                  "image":{
+                    "example":"string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/get-themes": {
+        "get": {
+          "tags": ["Theme"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/delete-theme/{id}": {
+        "delete": {
+          "tags": ["Theme"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/create-mysterybox": {
+        "post": {
+          "tags": ["MysteryBox"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "properties": {
+                  "name":{
+                    "example": "string"
+                  },
+                  "age":{
+                    "example": "string"
+                  },
+                  "priceAvarage":{
+                    "example":"string"
+                  },
+                  "quantityProInBox":{
+                    "example":"number"
+                  },
+                  "description":{
+                    "example":"string"
+                  },
+                  "image":{
+                    "example":"string"
+                  },
+                  "qrCode":{
+                    "example":"#ABC123"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/get-mysterybox": {
+        "get": {
+          "tags": ["MysteryBox"],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-mysterybox-condition": {
+        "post": {
+          "tags": ["MysteryBox"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "yob": {
+                    "example": "any"
+                  },
+                  "themeId": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/create-packageinperiod": {
+        "post": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type":"object",
+                "properties": {
+                  "name":{
+                    "example":"string"
+                  },
+                  "ageRange":{
+                    "example":"3-5"
+                  },
+                  "price":{
+                    "example":100000
+                  },
+                  "quantity":{
+                    "example": 2
+                  },
+                  "description":{
+                    "example":"string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/get-packageinperiod-by-packageOrder/{id}": {
+        "get": {
+          "tags": ["Order"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-all-packageinperiod": {
+        "get": {
+          "tags": ["Package"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-box-not-confirm": {
+        "get": {
+          "tags": ["MysteryBox"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-status-box": {
+        "get": {
+          "tags": ["MysteryBox"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/update-status-packageinperiod/{packageInPeriodId}": {
+        "patch": {
+          "tags": ["Period"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "packageInPeriodId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-packageinperiod-of-packageorder/{packageOrderId}": {
+        "get": {
+          "tags": ["Order"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "packageOrderId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      },
+      "/api/v1/create-product": {
+        "post": {
+          "tags": ["Product"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type":"object",
+                "properties": {
+                  "name":{
+                    "example":"string"
+                  },
+                  "type":{
+                    "example":"string"
+                  },
+                  "ageRange":{
+                    "example": "3-5"
+                  },
+                  "material":{
+                    "example":"glass"
+                  },
+                  "price":{
+                    "example":30000
+                  },
+                  "quantity":{
+                    "example":1000
+                  },
+                  "gender":{
+                    "example":"Male/Female/Other"
+                  },
+                  "color":{
+                    "example":"green"
+                  },
+                  "productCode":{
+                    "example":"CP-202"
+                  },
+                  "themeId":{
+                    "example":"string"
+                  },
+                  "origin":{
+                    "example":"VietNam"
+                  },
+                  "description":{
+                    "example":"string"
+                  },
+                  "image":{
+                    "example":"string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/v1/random-product/{kidId}/{packageId}": {
+        "get": {
+          "tags": ["Product"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "kidId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "packageId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-product": {
+        "get": {
+          "tags": ["Product"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "boxId",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "themeId",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "origin",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "color",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "fromPrice",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "toPrice",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "search",
+              "in": "query",
+              "type": "string"
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/get-productById/{id}": {
+        "get": {
+          "tags": ["Product"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/delete-productById/{id}": {
+        "delete": {
+          "tags": ["Product"],
+          "security": [
+            {
+              "bearerAuth":[]
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/v1/update-profile-user/{id}": {
+        "patch": {
+          "tags": ["Authenticate"],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "schema": {
+                "type":"object",
+                "properties": {
+                    "fullName":{
+                      "example": "string"
+                    },
+                    "email":{
+                      "example": "string"
+                    },
+                    "phone":{
+                      "example": "string"
+                    },
+                    "address": {
+                      "example": "string  "
+                    }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/auth/google": {
+        "get": {
+          "tags": ["Authenticate"],
+          "description": "",
+          "responses": {
+            "default": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/api/auth/google/callback": {
+        "get": {
+          "tags": ["Authenticate"],
+          "description": "",
+          "responses": {
+            "default": {
+              "description": ""
+            }
+          }
+        }
+      },
+      "/api/auth/login-oauth-success": {
+        "post": {
+          "tags": ["Authenticate"],
+          "description": "",
+          "responses": {
+            "default": {
+              "description": ""
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ]
+    
+  }
